@@ -75,10 +75,7 @@ const Navbar = () => {
           } lg:flex flex-col lg:flex-row mt-11 lg:mt-0 ease-in-out duration-300`}
         >
           <li>
-            <Link
-              className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded text-center block lg:inline ease-in-out duration-300"
-              to="/signin"
-            >
+            <Link className="btn" to="/signin">
               Login
             </Link>
           </li>

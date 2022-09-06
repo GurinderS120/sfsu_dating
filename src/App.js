@@ -5,11 +5,13 @@ import Signup from "./Components/Signup";
 import UserProfile from "./Components/UserProfile";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signout from "./Components/Signout";
+import Navbar from "./Components/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />

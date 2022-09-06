@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <>
-      <Navbar />
       {/* Background image */}
       <div className="h-screen bg-slate-500">
         <img

@@ -11,6 +11,15 @@
     .lg-nav-links {
         @apply bg-transparent p-0 mb-0 inline hover:underline hover:text-orange-500 hover:bg-transparent;
     }
+
+    .btn {
+        @apply bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded text-center block lg:inline ease-in-out duration-300
+    }
+
+    .input {
+        @apply block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none
+    }
+
 }
 
 ::-webkit-scrollbar {
