@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
 import { app } from "../firebase_config";
 import { useFormik } from "formik";
-import { simpleSchema } from "../Schemas/index";
+import { signinSchema } from "../Schemas/index";
 import { Link } from "react-router-dom";
 
 const auth = getAuth(app);
@@ -41,9 +40,8 @@ const Signin = () => {
     initialValues: {
       email: "",
       password: "",
-      confirmPassword: "",
     },
-    validationSchema: simpleSchema,
+    validationSchema: signinSchema,
     onSubmit: signin,
   });
 

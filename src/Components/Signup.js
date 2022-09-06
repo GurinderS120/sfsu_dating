@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,7 +7,7 @@ import {
 import { app } from "../firebase_config";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { simpleSchema } from "../Schemas";
+import { signupSchema } from "../Schemas";
 
 const auth = getAuth(app);
 
@@ -42,7 +41,7 @@ const Signup = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: simpleSchema,
+    validationSchema: signupSchema,
     onSubmit: signup,
   });
 
