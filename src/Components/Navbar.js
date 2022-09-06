@@ -7,7 +7,7 @@ const Navbar = () => {
     <nav
       className={`${
         displayMenu ? "h-screen" : "h-auto"
-      } bg-slate-200 lg:h-auto sticky top-0 z-50`}
+      } bg-slate-200 lg:h-auto sticky top-0 z-10`}
     >
       {/* container */}
       <div className="lg:flex p-4 lg:justify-between lg:text-lg">
@@ -76,7 +76,7 @@ const Navbar = () => {
         >
           <li>
             <Link
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center block lg:inline ease-in-out duration-300"
+              className="bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 text-white font-bold py-2 px-4 rounded text-center block lg:inline ease-in-out duration-300"
               to="/signin"
             >
               Login
