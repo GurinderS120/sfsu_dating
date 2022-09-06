@@ -4,9 +4,13 @@ import { useState } from "react";
 const Navbar = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
   return (
-    <nav className="bg-slate-200 h-screen">
+    <nav
+      className={`${
+        displayMenu ? "h-screen" : "h-auto"
+      } bg-slate-200 lg:h-auto sticky top-0 z-50`}
+    >
       {/* container */}
-      <div className="lg:flex p-3 lg:justify-between lg:text-lg">
+      <div className="lg:flex p-4 lg:justify-between lg:text-lg">
         <div className="flex justify-between lg:block">
           {/* Logo */}
           <h3>
@@ -36,21 +40,30 @@ const Navbar = () => {
         {/* Menu */}
         <ul
           className={`${
-            displayMenu ? "translate-x-0" : "translate-x-[104%]"
+            displayMenu ? "block" : "hidden"
           } lg:flex flex-col mt-8 lg:mt-0 lg:flex-row lg:w-64 lg:justify-between ease-in-out duration-300`}
         >
           <li>
-            <Link className="sm-nav-links lg:lg-nav-links" to="/policy">
+            <Link
+              className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
+              to="/policy"
+            >
               Policy
             </Link>
           </li>
           <li>
-            <Link className="sm-nav-links lg:lg-nav-links" to="/about">
+            <Link
+              className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
+              to="/about"
+            >
               About
             </Link>
           </li>
           <li>
-            <Link className="sm-nav-links lg:lg-nav-links" to="/support">
+            <Link
+              className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
+              to="/support"
+            >
               Support
             </Link>
           </li>
@@ -58,12 +71,12 @@ const Navbar = () => {
 
         <ul
           className={`${
-            displayMenu ? "translate-x-0" : "translate-x-[104%]"
+            displayMenu ? "block" : "hidden"
           } lg:flex flex-col lg:flex-row mt-11 lg:mt-0 ease-in-out duration-300`}
         >
           <li>
             <Link
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center block lg:inline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center block lg:inline ease-in-out duration-300"
               to="/signin"
             >
               Login
