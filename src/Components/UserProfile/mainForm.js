@@ -22,7 +22,9 @@ const InputField = ({ ...props }) => {
 };
 
 const MainForm = () => {
-  const submitProfile = () => {};
+  const submitProfile = () => {
+    console.log("Form Submitted");
+  };
 
   return (
     <FormikStepper
@@ -58,13 +60,30 @@ const FormikStepper = ({ children, ...props }) => {
   const childArr = React.Children.toArray(children);
   const [step, setStep] = useState(0);
 
+  const isLastStep = () => {
+    return step === childArr.length - 1;
+  };
+
   return (
-    <Formik {...props}>
+    <Formik
+      {...props}
+      onSubmit={async (values, helpers) => {
+        if (isLastStep()) {
+          await props.onSubmit(values, helpers);
+        } else {
+          setStep((step) => step + 1);
+        }
+      }}
+    >
       <Form
         autoComplete="off"
         className="flex flex-col h-screen justify-center items-center"
       >
         {childArr[step]}
+        {step > 0 ? (
+          <button onClick={() => setStep((step) => step - 1)}>Back</button>
+        ) : null}
+        <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
       </Form>
     </Formik>
   );
