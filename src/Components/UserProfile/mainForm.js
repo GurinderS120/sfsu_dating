@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Form, Formik, useField, FormikConfig, FormikValues } from "formik";
+import React, { useState } from "react";
+import { Form, Formik, useField } from "formik";
 import { profileSchema } from "../../Schemas/index";
 
 const InputField = ({ ...props }) => {
@@ -35,34 +35,37 @@ const MainForm = () => {
       validationSchema={profileSchema}
       onSubmit={submitProfile}
     >
-      <Form
-        autoComplete="off"
-        className="flex flex-col h-screen justify-center items-center"
-      >
-        <InputField name="name" type="text" placeholder="Name" />
-        <InputField name="birthday" type="date" />
-        <div>
-          <label>
-            <InputField name="gender" type="radio" value="female" /> Female
-          </label>
-          <label>
-            <InputField name="gender" type="radio" value="male" /> Male
-          </label>
-          <label>
-            <InputField name="gender" type="radio" value="Non-binary" />{" "}
-            Non-binary
-          </label>
-        </div>
-        <InputField name="pic" type="file" />
-      </Form>
+      <InputField name="name" type="text" placeholder="Name" />
+      <InputField name="birthday" type="date" />
+      <div>
+        <label>
+          <InputField name="gender" type="radio" value="female" /> Female
+        </label>
+        <label>
+          <InputField name="gender" type="radio" value="male" /> Male
+        </label>
+        <label>
+          <InputField name="gender" type="radio" value="Non-binary" />{" "}
+          Non-binary
+        </label>
+      </div>
+      <InputField name="pic" type="file" />
     </FormikStepper>
   );
 };
 
 const FormikStepper = ({ children, ...props }) => {
+  const childArr = React.Children.toArray(children);
+  const [step, setStep] = useState(0);
+
   return (
     <Formik {...props}>
-      <Form autoComplete="off">{children}</Form>
+      <Form
+        autoComplete="off"
+        className="flex flex-col h-screen justify-center items-center"
+      >
+        {childArr[step]}
+      </Form>
     </Formik>
   );
 };
