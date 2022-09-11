@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Form, Formik, useField } from "formik";
+import { Form, Formik, useField, FormikConfig, FormikValues } from "formik";
 import { profileSchema } from "../../Schemas/index";
 
 const InputField = ({ ...props }) => {
@@ -25,12 +25,11 @@ const MainForm = () => {
   const submitProfile = () => {};
 
   return (
-    <Formik
+    <FormikStepper
       initialValues={{
         name: "",
         birthday: "",
         gender: "",
-        connect: "",
         pic: "",
       }}
       validationSchema={profileSchema}
@@ -56,6 +55,14 @@ const MainForm = () => {
         </div>
         <InputField name="pic" type="file" />
       </Form>
+    </FormikStepper>
+  );
+};
+
+const FormikStepper = ({ children, ...props }) => {
+  return (
+    <Formik {...props}>
+      <Form autoComplete="off">{children}</Form>
     </Formik>
   );
 };
