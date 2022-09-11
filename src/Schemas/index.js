@@ -61,4 +61,6 @@ export const profileSchema = yup.object().shape({
     .test("birthday", "You must be at least 18 years old", (date) => {
       return dayjs().diff(dayjs(date), "year") >= 18;
     }),
+  gender: yup.string().required("Required"),
+  pic: yup.string().required("Required"),
 });
