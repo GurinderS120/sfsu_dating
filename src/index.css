@@ -20,6 +20,18 @@
         @apply block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:outline-none
     }
 
+    .invalid-input {
+        @apply border-red-600 focus:border-red-600
+    }
+
+    .valid-input {
+        @apply  border-gray-400 focus:border-blue-600
+    }
+
+    .inp-err-mssg {
+        @apply text-xs text-red-600
+    }
+
 }
 
 ::-webkit-scrollbar {
