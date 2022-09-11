@@ -47,3 +47,7 @@ export const signinSchema = yup.object().shape({
     })
     .required("Required"),
 });
+
+export const nameSchema = yup.object().shape({
+  userName: yup.string().min(2).max(22).required("Required"),
+});

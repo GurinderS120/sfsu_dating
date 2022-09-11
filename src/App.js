@@ -2,7 +2,7 @@ import "./App.css";
 import Home from "./Components/Home";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
-import UserProfile from "./Components/UserProfile";
+import MainForm from "./Components/UserProfile/mainForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signout from "./Components/Signout";
 import Navbar from "./Components/Navbar";
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/app/userprofile" element={<MainForm />} />
           <Route path="/signout" element={<Signout />} />
         </Routes>
       </div>
