@@ -63,7 +63,7 @@ const Signup = () => {
           onBlur={handleBlur}
         />
         {errors.email && touched.email && (
-          <p className="text-xs text-red-600 ">{errors.email}</p>
+          <p className="text-xs text-red-600">{errors.email}</p>
         )}
         <input
           type="password"
