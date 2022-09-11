@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import dayjs from "dayjs";
 
 export const signupSchema = yup.object().shape({
   email: yup
@@ -48,6 +49,16 @@ export const signinSchema = yup.object().shape({
     .required("Required"),
 });
 
-export const nameSchema = yup.object().shape({
-  name: yup.string().min(2).max(22).required("Required"),
+export const profileSchema = yup.object().shape({
+  name: yup
+    .string()
+    .min(2, "Name must be at least 2 characters long")
+    .max(22)
+    .required("Required"),
+  birthday: yup
+    .string()
+    .required("Required")
+    .test("birthday", "You must be at least 18 years old", (date) => {
+      return dayjs().diff(dayjs(date), "year") >= 18;
+    }),
 });
