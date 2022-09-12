@@ -81,7 +81,9 @@ const FormikStepper = ({ children, ...props }) => {
       >
         {childArr[step]}
         {step > 0 ? (
-          <button onClick={() => setStep((step) => step - 1)}>Back</button>
+          <button type="button" onClick={() => setStep((step) => step - 1)}>
+            Back
+          </button>
         ) : null}
         <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
       </Form>
