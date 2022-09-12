@@ -49,18 +49,27 @@ export const signinSchema = yup.object().shape({
     .required("Required"),
 });
 
-export const profileSchema = yup.object().shape({
+export const nameSchema = yup.object().shape({
   name: yup
     .string()
     .min(2, "Name must be at least 2 characters long")
     .max(22)
     .required("Required"),
+});
+
+export const birthdaySchema = yup.object().shape({
   birthday: yup
     .string()
     .required("Required")
     .test("birthday", "You must be at least 18 years old", (date) => {
       return dayjs().diff(dayjs(date), "year") >= 18;
     }),
+});
+
+export const genderSchema = yup.object().shape({
   gender: yup.string().required("Required"),
+});
+
+export const picSchema = yup.object().shape({
   pic: yup.string().required("Required"),
 });
