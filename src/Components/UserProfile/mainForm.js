@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { Form, Formik, useField } from "formik";
-import { profileSchema } from "../../Schemas/index";
+import {
+  birthdaySchema,
+  genderSchema,
+  nameSchema,
+  picSchema,
+} from "../../Schemas/index";
+
+const inputSchemas = [nameSchema, birthdaySchema, genderSchema, picSchema];
 
 const InputField = ({ ...props }) => {
   const [field, meta] = useField(props);
@@ -34,7 +41,6 @@ const MainForm = () => {
         gender: "",
         pic: "",
       }}
-      validationSchema={profileSchema}
       onSubmit={submitProfile}
     >
       <InputField name="name" type="text" placeholder="Name" />
@@ -67,6 +73,7 @@ const FormikStepper = ({ children, ...props }) => {
   return (
     <Formik
       {...props}
+      validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
