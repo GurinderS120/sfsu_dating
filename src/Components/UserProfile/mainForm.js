@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Formik, useField } from "formik";
+import { AiOutlinePlus } from "react-icons/ai";
 import {
   genderSchema,
   nameSchema,
@@ -112,7 +113,7 @@ const MainForm = () => {
         <label className="flex flex-row mb-2">
           Both
           <InputField
-            className="w-3 ml-[4.8rem]"
+            className="w-3 ml-[4.9rem]"
             name="interest"
             type="radio"
             value="both"
@@ -201,7 +202,10 @@ const FormikStepper = ({ children, ...props }) => {
 
 const FileInput = ({ setfieldvalue, picval, picerr }) => {
   return (
-    <>
+    <div className="image-container">
+      <button className="text-xl" type="button">
+        <AiOutlinePlus />
+      </button>
       <input
         id="pic"
         name="pic"
@@ -214,8 +218,10 @@ const FileInput = ({ setfieldvalue, picval, picerr }) => {
       />
       {picerr && <p className="inp-err-mssg">{picerr}</p>}
 
-      {picval && !picerr && <PreviewImage image={picval} />}
-    </>
+      <div className="image-section">
+        {picval && !picerr && <PreviewImage image={picval} />}
+      </div>
+    </div>
   );
 };
 

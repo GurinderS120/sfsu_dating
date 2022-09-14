@@ -65,6 +65,18 @@
         @apply w-72
     }
 
+    .image-container {
+        @apply relative
+    }
+
+    .image-container input {
+        @apply absolute opacity-0 top-0 left-0 w-0
+    }
+
+    .image-container .image-section {
+        @apply bg-slate-200 h-[15rem] lg:h-[16.7rem] overflow-clip
+    }
+
 }
 
 ::-webkit-scrollbar {
