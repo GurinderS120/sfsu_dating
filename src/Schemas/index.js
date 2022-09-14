@@ -51,12 +51,15 @@ export const signinSchema = yup.object().shape({
     .required("Required"),
 });
 
-export const nameAndBirthdaySchema = yup.object().shape({
+export const nameSchema = yup.object().shape({
   name: yup
     .string()
     .min(2, "Name must be at least 2 characters long")
     .max(22)
     .required("Required"),
+});
+
+export const birthdaySchema = yup.object().shape({
   birthday: yup
     .string()
     .required("Required")
