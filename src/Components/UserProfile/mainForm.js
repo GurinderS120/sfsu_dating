@@ -72,6 +72,19 @@ const FormikStepper = ({ children, ...props }) => {
     return step === childArr.length - 1;
   };
 
+  const getProgress = () => {
+    switch (step) {
+      case 0:
+        return "progress-bar-0";
+      case 1:
+        return "progress-bar-1";
+      case 2:
+        return "progress-bar-2";
+      default:
+        return "progress-bar-3";
+    }
+  };
+
   return (
     <Formik
       {...props}
@@ -86,26 +99,31 @@ const FormikStepper = ({ children, ...props }) => {
       }}
     >
       {({ setFieldValue, values, errors }) => (
-        <Form
-          autoComplete="off"
-          className="flex flex-col h-screen w-60 ml-auto mr-auto justify-center items-center"
-        >
-          {isLastStep() ? (
-            <FileInput
-              setfieldvalue={setFieldValue}
-              picval={values.pic}
-              picerr={errors.pic}
-            />
-          ) : (
-            childArr[step]
-          )}
-          {step > 0 ? (
-            <button type="button" onClick={() => setStep((step) => step - 1)}>
-              Back
-            </button>
-          ) : null}
-          <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
-        </Form>
+        <>
+          <div className="progress-bar-bg">
+            <div className={getProgress()}></div>
+          </div>
+          <Form
+            autoComplete="off"
+            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-28 items-center"
+          >
+            {isLastStep() ? (
+              <FileInput
+                setfieldvalue={setFieldValue}
+                picval={values.pic}
+                picerr={errors.pic}
+              />
+            ) : (
+              childArr[step]
+            )}
+            {step > 0 ? (
+              <button type="button" onClick={() => setStep((step) => step - 1)}>
+                Back
+              </button>
+            ) : null}
+            <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
+          </Form>
+        </>
       )}
     </Formik>
   );
