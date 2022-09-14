@@ -37,23 +37,32 @@
     }
 
     .progress-bar-0 {
-        @apply w-[12.5%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[10%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
     }
 
     .progress-bar-1 {
-        @apply w-[50%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[30%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
     }
 
     .progress-bar-2 {
-        @apply w-[75%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[50%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
     }
 
     .progress-bar-3 {
+        @apply w-[70%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+    }
+
+    .progress-bar-4 {
         @apply w-[100%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
     }
 
+
     .form-step-header {
         @apply mb-14 text-lg
+    }
+
+    .form-container {
+        @apply w-72
     }
 
 }
