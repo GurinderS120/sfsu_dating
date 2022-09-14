@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Form, Formik, useField } from "formik";
 import {
-  birthdaySchema,
   genderSchema,
-  nameSchema,
+  nameAndBirthdaySchema,
   picSchema,
 } from "../../Schemas/index";
+import PreviewImage from "./previewImage";
 
-const inputSchemas = [nameSchema, birthdaySchema, genderSchema, picSchema];
+const inputSchemas = [nameAndBirthdaySchema, genderSchema, picSchema];
 
 const InputField = ({ ...props }) => {
   const [field, meta] = useField(props);
@@ -29,8 +29,8 @@ const InputField = ({ ...props }) => {
 };
 
 const MainForm = () => {
-  const submitProfile = () => {
-    console.log("Form Submitted");
+  const submitProfile = (values, action) => {
+    console.log(values);
   };
 
   return (
@@ -39,12 +39,14 @@ const MainForm = () => {
         name: "",
         birthday: "",
         gender: "",
-        pic: "",
+        pic: null,
       }}
       onSubmit={submitProfile}
     >
-      <InputField name="name" type="text" placeholder="Name" />
-      <InputField name="birthday" type="date" />
+      <div>
+        <InputField name="name" type="text" placeholder="Name" />
+        <InputField name="birthday" type="date" />
+      </div>
       <div>
         <label>
           <InputField name="gender" type="radio" value="female" /> Female
@@ -57,7 +59,7 @@ const MainForm = () => {
           Non-binary
         </label>
       </div>
-      <InputField name="pic" type="file" />
+      <div></div>
     </FormikStepper>
   );
 };
@@ -75,6 +77,7 @@ const FormikStepper = ({ children, ...props }) => {
       {...props}
       validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
+        console.log(values);
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
         } else {
@@ -82,19 +85,49 @@ const FormikStepper = ({ children, ...props }) => {
         }
       }}
     >
-      <Form
-        autoComplete="off"
-        className="flex flex-col h-screen justify-center items-center"
-      >
-        {childArr[step]}
-        {step > 0 ? (
-          <button type="button" onClick={() => setStep((step) => step - 1)}>
-            Back
-          </button>
-        ) : null}
-        <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
-      </Form>
+      {({ setFieldValue, values, errors }) => (
+        <Form
+          autoComplete="off"
+          className="flex flex-col h-screen w-60 ml-auto mr-auto justify-center items-center"
+        >
+          {isLastStep() ? (
+            <FileInput
+              setfieldvalue={setFieldValue}
+              picval={values.pic}
+              picerr={errors.pic}
+            />
+          ) : (
+            childArr[step]
+          )}
+          {step > 0 ? (
+            <button type="button" onClick={() => setStep((step) => step - 1)}>
+              Back
+            </button>
+          ) : null}
+          <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
+        </Form>
+      )}
     </Formik>
+  );
+};
+
+const FileInput = ({ setfieldvalue, picval, picerr }) => {
+  return (
+    <>
+      <input
+        id="pic"
+        name="pic"
+        type="file"
+        accept="image/png, image/jpeg, image/png"
+        className={`${picerr ? "invalid-input " : "valid-input "}input`}
+        onChange={(event) => {
+          setfieldvalue("pic", event.currentTarget.files[0]);
+        }}
+      />
+      {picerr && <p className="inp-err-mssg">{picerr}</p>}
+
+      {picval && !picerr && <PreviewImage image={picval} />}
+    </>
   );
 };
 
