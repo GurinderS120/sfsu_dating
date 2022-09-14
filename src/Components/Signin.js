@@ -48,7 +48,10 @@ const Signin = () => {
   return (
     <div>
       <div className="h-screen flex flex-col lg:flex-row items-center justify-center">
-        <form className="flex flex-col w-60" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col w-60 lg:form-container"
+          onSubmit={handleSubmit}
+        >
           {/* <h1>Sign up</h1> */}
           <input
             type="email"
@@ -89,7 +92,7 @@ const Signin = () => {
           >
             Login
           </button>
-          <h6 className="mt-6">
+          <h6 className="mt-6 lg:text-center">
             Don't have an account?
             <Link to="/signup" className="ml-1 lg-nav-links">
               Sign up
