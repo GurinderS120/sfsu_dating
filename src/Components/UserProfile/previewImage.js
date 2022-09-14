@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 let imgUrl = null;
 
 const PreviewImage = ({ image }) => {
