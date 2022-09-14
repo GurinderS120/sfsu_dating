@@ -72,6 +72,10 @@ export const genderSchema = yup.object().shape({
   gender: yup.string().required("Required"),
 });
 
+export const interestSchema = yup.object().shape({
+  gender: yup.string().required("Required"),
+});
+
 export const picSchema = yup.object().shape({
   pic: yup
     .mixed()
