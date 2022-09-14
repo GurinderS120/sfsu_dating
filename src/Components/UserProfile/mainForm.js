@@ -59,34 +59,64 @@ const MainForm = () => {
         <h3 className="form-step-header">Birthday</h3>
         <InputField name="birthday" type="date" />
       </div>
-      <div>
+      <div className="ml-8">
         <h3 className="form-step-header">Gender</h3>
-        <label>
+        <label className="flex flex-row mb-2">
           Female
-          <InputField name="gender" type="radio" value="female" />
+          <InputField
+            className="w-3 ml-16"
+            name="gender"
+            type="radio"
+            value="female"
+          />
         </label>
-        <label>
+        <label className="flex flex-row mb-2">
           Male
-          <InputField name="gender" type="radio" value="male" />
+          <InputField
+            className="w-3 ml-20"
+            name="gender"
+            type="radio"
+            value="male"
+          />
         </label>
-        <label>
+        <label className="flex flex-row mb-2">
           Non-binary
-          <InputField name="gender" type="radio" value="Non-binary" />
+          <InputField
+            className="w-3 ml-[2.2rem]"
+            name="gender"
+            type="radio"
+            value="Non-binary"
+          />
         </label>
       </div>
-      <div>
+      <div className="ml-8">
         <h3 className="form-step-header">Interested In</h3>
-        <label>
+        <label className="flex flex-row mb-2">
           Men
-          <InputField name="interest" type="radio" value="men" />
+          <InputField
+            className="w-3 ml-20"
+            name="interest"
+            type="radio"
+            value="men"
+          />
         </label>
-        <label>
+        <label className="flex flex-row mb-2">
           Women
-          <InputField name="interest" type="radio" value="women" />
+          <InputField
+            className="w-3 ml-14"
+            name="interest"
+            type="radio"
+            value="women"
+          />
         </label>
-        <label>
+        <label className="flex flex-row mb-2">
           Both
-          <InputField name="interest" type="radio" value="both" />
+          <InputField
+            className="w-3 ml-[4.8rem]"
+            name="interest"
+            type="radio"
+            value="both"
+          />
         </label>
       </div>
       <div></div>
@@ -136,7 +166,7 @@ const FormikStepper = ({ children, ...props }) => {
           </div>
           <Form
             autoComplete="off"
-            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-12 lg:form-container"
+            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[8rem] lg:form-container"
           >
             {isLastStep() ? (
               <>
