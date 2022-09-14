@@ -4,11 +4,18 @@ import {
   genderSchema,
   nameSchema,
   birthdaySchema,
+  interestSchema,
   picSchema,
 } from "../../Schemas/index";
 import PreviewImage from "./previewImage";
 
-const inputSchemas = [nameSchema, birthdaySchema, genderSchema, picSchema];
+const inputSchemas = [
+  nameSchema,
+  birthdaySchema,
+  genderSchema,
+  interestSchema,
+  picSchema,
+];
 
 const InputField = ({ ...props }) => {
   const [field, meta] = useField(props);
@@ -18,7 +25,7 @@ const InputField = ({ ...props }) => {
       <input
         className={`${
           meta.touched && meta.error ? "invalid-input " : "valid-input "
-        }input w-60`}
+        }input`}
         {...field}
         {...props}
       />
@@ -55,14 +62,31 @@ const MainForm = () => {
       <div>
         <h3 className="form-step-header">Gender</h3>
         <label>
-          <InputField name="gender" type="radio" value="female" /> Female
+          Female
+          <InputField name="gender" type="radio" value="female" />
         </label>
         <label>
-          <InputField name="gender" type="radio" value="male" /> Male
+          Male
+          <InputField name="gender" type="radio" value="male" />
         </label>
         <label>
-          <InputField name="gender" type="radio" value="Non-binary" />{" "}
           Non-binary
+          <InputField name="gender" type="radio" value="Non-binary" />
+        </label>
+      </div>
+      <div>
+        <h3 className="form-step-header">Interested In</h3>
+        <label>
+          Men
+          <InputField name="interest" type="radio" value="men" />
+        </label>
+        <label>
+          Women
+          <InputField name="interest" type="radio" value="women" />
+        </label>
+        <label>
+          Both
+          <InputField name="interest" type="radio" value="both" />
         </label>
       </div>
       <div></div>
@@ -86,8 +110,10 @@ const FormikStepper = ({ children, ...props }) => {
         return "progress-bar-1";
       case 2:
         return "progress-bar-2";
-      default:
+      case 3:
         return "progress-bar-3";
+      default:
+        return "progress-bar-4";
     }
   };
 
@@ -110,7 +136,7 @@ const FormikStepper = ({ children, ...props }) => {
           </div>
           <Form
             autoComplete="off"
-            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-12"
+            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-12 lg:form-container"
           >
             {isLastStep() ? (
               <>
@@ -124,6 +150,9 @@ const FormikStepper = ({ children, ...props }) => {
             ) : (
               childArr[step]
             )}
+            <button className="btn mt-4 w-full" type="submit">
+              {isLastStep() ? "Submit" : "Next"}
+            </button>
             {step > 0 ? (
               <button
                 className="btn mt-4 w-full"
@@ -133,9 +162,6 @@ const FormikStepper = ({ children, ...props }) => {
                 Back
               </button>
             ) : null}
-            <button className="btn mt-4 w-full" type="submit">
-              {isLastStep() ? "Submit" : "Next"}
-            </button>
           </Form>
         </>
       )}
