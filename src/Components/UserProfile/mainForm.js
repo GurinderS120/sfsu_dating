@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Form, Formik, useField } from "formik";
 import {
   genderSchema,
-  nameAndBirthdaySchema,
+  nameSchema,
+  birthdaySchema,
   picSchema,
 } from "../../Schemas/index";
 import PreviewImage from "./previewImage";
 
-const inputSchemas = [nameAndBirthdaySchema, genderSchema, picSchema];
+const inputSchemas = [nameSchema, birthdaySchema, genderSchema, picSchema];
 
 const InputField = ({ ...props }) => {
   const [field, meta] = useField(props);
@@ -17,7 +18,7 @@ const InputField = ({ ...props }) => {
       <input
         className={`${
           meta.touched && meta.error ? "invalid-input " : "valid-input "
-        }input`}
+        }input w-60`}
         {...field}
         {...props}
       />
@@ -44,10 +45,15 @@ const MainForm = () => {
       onSubmit={submitProfile}
     >
       <div>
+        <h3 className="form-step-header">Name</h3>
         <InputField name="name" type="text" placeholder="Name" />
+      </div>
+      <div>
+        <h3 className="form-step-header">Birthday</h3>
         <InputField name="birthday" type="date" />
       </div>
       <div>
+        <h3 className="form-step-header">Gender</h3>
         <label>
           <InputField name="gender" type="radio" value="female" /> Female
         </label>
@@ -90,7 +96,6 @@ const FormikStepper = ({ children, ...props }) => {
       {...props}
       validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
-        console.log(values);
         if (isLastStep()) {
           await props.onSubmit(values, helpers);
         } else {
@@ -105,23 +110,32 @@ const FormikStepper = ({ children, ...props }) => {
           </div>
           <Form
             autoComplete="off"
-            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-28 items-center"
+            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-12"
           >
             {isLastStep() ? (
-              <FileInput
-                setfieldvalue={setFieldValue}
-                picval={values.pic}
-                picerr={errors.pic}
-              />
+              <>
+                <h3 className="form-step-header">Profile Pic</h3>
+                <FileInput
+                  setfieldvalue={setFieldValue}
+                  picval={values.pic}
+                  picerr={errors.pic}
+                />
+              </>
             ) : (
               childArr[step]
             )}
             {step > 0 ? (
-              <button type="button" onClick={() => setStep((step) => step - 1)}>
+              <button
+                className="btn mt-4 w-full"
+                type="button"
+                onClick={() => setStep((step) => step - 1)}
+              >
                 Back
               </button>
             ) : null}
-            <button type="submit">{isLastStep() ? "Submit" : "Next"}</button>
+            <button className="btn mt-4 w-full" type="submit">
+              {isLastStep() ? "Submit" : "Next"}
+            </button>
           </Form>
         </>
       )}
