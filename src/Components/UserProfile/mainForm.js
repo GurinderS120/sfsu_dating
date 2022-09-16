@@ -84,7 +84,7 @@ const MainForm = () => {
         <label className="flex flex-row mb-2">
           Non-binary
           <InputField
-            className="w-3 ml-[2.2rem]"
+            className="w-3 ml-[2.1rem]"
             name="gender"
             type="radio"
             value="Non-binary"
@@ -114,7 +114,7 @@ const MainForm = () => {
         <label className="flex flex-row mb-2">
           Both
           <InputField
-            className="w-3 ml-[4.9rem]"
+            className="w-3 ml-[4.8rem]"
             name="interest"
             type="radio"
             value="both"
@@ -163,8 +163,10 @@ const FormikStepper = ({ children, ...props }) => {
     >
       {({ setFieldValue, values, errors }) => (
         <>
-          <div className="progress-bar-bg">
-            <div className={getProgress()}></div>
+          <div className="progress-bar">
+            <div className="progress-bar-bg">
+              <div className={`progress-bar-fg ${getProgress()}`}></div>
+            </div>
           </div>
           <Form
             autoComplete="off"
@@ -215,8 +217,11 @@ const FileInput = ({ setfieldvalue, picval, picerr }) => {
 
   return (
     <div className="image-container">
-      <button className="text-xl" type="button">
-        <AiOutlinePlus />
+      <button
+        className="text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-1 lg:p-2 mb-3 rounded-full"
+        type="button"
+      >
+        <AiOutlinePlus className="text-white" />
       </button>
       <input
         id="pic"
@@ -231,7 +236,7 @@ const FileInput = ({ setfieldvalue, picval, picerr }) => {
           handleFileChange(event.currentTarget.files[0]);
         }}
       />
-      {picerr && <p className="inp-err-mssg">{picerr}</p>}
+      {picerr && <p className="inp-err-mssg mb-2">{picerr}</p>}
 
       <div className="image-section">
         {!picerr && imgSrc && <PreviewImage imgurl={imgSrc} />}
