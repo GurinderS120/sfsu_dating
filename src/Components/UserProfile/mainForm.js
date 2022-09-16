@@ -114,7 +114,7 @@ const MainForm = () => {
         <label className="flex flex-row mb-2">
           Both
           <InputField
-            className="w-3 ml-[4.8rem]"
+            className="w-3 ml-[4.9rem]"
             name="interest"
             type="radio"
             value="both"
@@ -129,6 +129,7 @@ const MainForm = () => {
 const FormikStepper = ({ children, ...props }) => {
   const childArr = React.Children.toArray(children);
   const [step, setStep] = useState(0);
+  const [imgSrc, setImgSrc] = useState(null);
 
   const isLastStep = () => {
     return step === childArr.length - 1;
@@ -176,9 +177,11 @@ const FormikStepper = ({ children, ...props }) => {
               <>
                 <h3 className="form-step-header">Profile Pic</h3>
                 <FileInput
-                  setfieldvalue={setFieldValue}
-                  picval={values.pic}
-                  picerr={errors.pic}
+                  setFieldValue={setFieldValue}
+                  picVal={values.pic}
+                  picErr={errors.pic}
+                  imgSrc={imgSrc}
+                  setImgSrc={setImgSrc}
                 />
               </>
             ) : (
@@ -203,9 +206,7 @@ const FormikStepper = ({ children, ...props }) => {
   );
 };
 
-const FileInput = ({ setfieldvalue, picval, picerr }) => {
-  const [imgSrc, setImgSrc] = useState(null);
-
+const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
   const handleFileChange = (file) => {
     if (file) {
       if (imgSrc) {
@@ -229,17 +230,17 @@ const FileInput = ({ setfieldvalue, picval, picerr }) => {
         type="file"
         accept="image/png, image/jpeg, image/png"
         className={`${
-          picerr ? "invalid-input " : "valid-input "
+          picErr ? "invalid-input " : "valid-input "
         }input upload-file`}
         onChange={(event) => {
-          setfieldvalue("pic", event.currentTarget.files[0]);
+          setFieldValue("pic", event.currentTarget.files[0]);
           handleFileChange(event.currentTarget.files[0]);
         }}
       />
-      {picerr && <p className="inp-err-mssg mb-2">{picerr}</p>}
+      {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
       <div className="image-section">
-        {!picerr && imgSrc && <PreviewImage imgurl={imgSrc} />}
+        {!picErr && imgSrc && <PreviewImage imgurl={imgSrc} />}
       </div>
     </div>
   );
