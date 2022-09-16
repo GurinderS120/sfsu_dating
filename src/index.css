@@ -36,24 +36,28 @@
         @apply w-full bg-blue-100 h-3 relative
     }
 
+    .progress-bar-fg {
+        @apply transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+    }
+
     .progress-bar-0 {
-        @apply w-[10%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[10%] 
     }
 
     .progress-bar-1 {
-        @apply w-[30%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[30%] 
     }
 
     .progress-bar-2 {
-        @apply w-[50%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[50%] 
     }
 
     .progress-bar-3 {
-        @apply w-[70%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[70%] 
     }
 
     .progress-bar-4 {
-        @apply w-[100%] transition-all ease-in-out duration-[0.9s] h-3 bg-gradient-to-r from-green-400 to-blue-500
+        @apply w-[100%] 
     }
 
 
@@ -70,18 +74,24 @@
     }
 
     .image-container .upload-file {
-        @apply absolute opacity-0 top-0 left-0 w-0
+        @apply absolute opacity-0 top-0 left-0 p-1 lg:p-2 mb-3 rounded-full cursor-pointer
     }
 
     .image-container .image-section {
-        @apply overflow-hidden ring-4 ring-slate-200 aspect-square w-full
+        @apply overflow-hidden ring-4 ring-slate-200 aspect-square w-full mb-5 lg:mb-8
     }
-}
 
-::-webkit-scrollbar {
-    background-color: transparent;
-}
+    .slider {
+        @apply w-full h-2 bg-slate-200 mt-4 mb-4 appearance-none cursor-pointer
+    }
 
-::-webkit-scrollbar-thumb {
-    @apply bg-gray-500 dark:bg-green-400;
+    .slider::-webkit-slider-thumb {
+        @apply appearance-none w-[1.3rem] h-[1.3rem] outline-none border-slate-50 rounded-full bg-gradient-to-r from-green-400 to-blue-500 cursor-pointer
+    }
+
+
+    .slider::-moz-range-thumb {
+        @apply appearance-none w-[1.3rem] h-[1.3rem] outline-none border-slate-50 rounded-full bg-gradient-to-r from-green-400 to-blue-500 cursor-pointer
+    }
+
 }
