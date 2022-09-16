@@ -76,10 +76,6 @@
     .image-container .image-section {
         @apply overflow-hidden ring-4 ring-slate-200 aspect-square w-full
     }
-
-    .image-container .image-section img {
-        @apply w-full h-full object-cover
-    }
 }
 
 ::-webkit-scrollbar {
