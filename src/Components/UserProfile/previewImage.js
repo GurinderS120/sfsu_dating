@@ -1,34 +1,27 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
 const PreviewImage = ({ imgurl }) => {
   const [croppedImg, setCroppedImg] = useState(null);
-  const [zoomVal, setZoomVal] = useState(0.01);
+  const [zoomVal, setZoomVal] = useState(0);
   const cropperRef = useRef(null);
+
+  useEffect(() => {
+    setZoomVal(0);
+  }, [imgurl]);
 
   const handleZoomChange = (e) => {
     setZoomVal((prevZoom) => {
-      if (prevZoom > e.target.value) {
-        handleZoomOut(e.target.value - prevZoom);
-      } else {
-        handleZoomIn(e.target.value - prevZoom);
-      }
-
+      handleZoom(e.target.value - prevZoom);
       return e.target.value;
     });
   };
 
-  const handleZoomIn = (increaseBy) => {
+  const handleZoom = (zoomBy) => {
     const imgEle = cropperRef.current;
     const cropper = imgEle.cropper;
-    cropper.zoom(increaseBy);
-  };
-
-  const handleZoomOut = (decreaseBy) => {
-    const imgEle = cropperRef.current;
-    const cropper = imgEle.cropper;
-    cropper.zoom(decreaseBy);
+    cropper.zoom(zoomBy);
   };
 
   return (
@@ -56,7 +49,7 @@ const PreviewImage = ({ imgurl }) => {
         min="0"
         max="1"
         step="0.02"
-        className="slider absolute"
+        className="slider absolute top-[17.2rem] lg:top-[21rem]"
         onChange={handleZoomChange}
         id="myRange"
       />
