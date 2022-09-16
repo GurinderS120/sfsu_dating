@@ -66,17 +66,20 @@
     }
 
     .image-container {
-        @apply relative
+        @apply relative max-w-none
     }
 
-    .image-container input {
+    .image-container .upload-file {
         @apply absolute opacity-0 top-0 left-0 w-0
     }
 
     .image-container .image-section {
-        @apply bg-slate-200 h-[15rem] lg:h-[16.7rem] overflow-clip
+        @apply overflow-hidden ring-4 ring-slate-200 aspect-square w-full
     }
 
+    .image-container .image-section img {
+        @apply w-full h-full object-cover
+    }
 }
 
 ::-webkit-scrollbar {
