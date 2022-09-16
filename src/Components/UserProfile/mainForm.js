@@ -48,6 +48,7 @@ const MainForm = () => {
         name: "",
         birthday: "",
         gender: "",
+        interest: "",
         pic: null,
       }}
       onSubmit={submitProfile}
@@ -201,6 +202,17 @@ const FormikStepper = ({ children, ...props }) => {
 };
 
 const FileInput = ({ setfieldvalue, picval, picerr }) => {
+  const [imgSrc, setImgSrc] = useState(null);
+
+  const handleFileChange = (file) => {
+    if (file) {
+      if (imgSrc) {
+        URL.revokeObjectURL(imgSrc);
+      }
+      setImgSrc(URL.createObjectURL(file));
+    }
+  };
+
   return (
     <div className="image-container">
       <button className="text-xl" type="button">
@@ -211,15 +223,18 @@ const FileInput = ({ setfieldvalue, picval, picerr }) => {
         name="pic"
         type="file"
         accept="image/png, image/jpeg, image/png"
-        className={`${picerr ? "invalid-input " : "valid-input "}input`}
+        className={`${
+          picerr ? "invalid-input " : "valid-input "
+        }input upload-file`}
         onChange={(event) => {
           setfieldvalue("pic", event.currentTarget.files[0]);
+          handleFileChange(event.currentTarget.files[0]);
         }}
       />
       {picerr && <p className="inp-err-mssg">{picerr}</p>}
 
       <div className="image-section">
-        {picval && !picerr && <PreviewImage image={picval} />}
+        {!picerr && imgSrc && <PreviewImage imgurl={imgSrc} />}
       </div>
     </div>
   );
