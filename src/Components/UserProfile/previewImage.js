@@ -4,8 +4,8 @@ import "cropperjs/dist/cropper.css";
 
 const PreviewImage = ({ imgurl }) => {
   const [croppedImg, setCroppedImg] = useState(null);
-  const [zoomVal, setZoomVal] = useState(0);
   const cropperRef = useRef(null);
+  const [zoomVal, setZoomVal] = useState(0);
 
   useEffect(() => {
     setZoomVal(0);
@@ -31,9 +31,8 @@ const PreviewImage = ({ imgurl }) => {
         src={imgurl}
         dragMode="move"
         style={{ height: "288px", width: "100%" }}
-        aspect={1 / 1}
-        //zoomTo={0.01}
-        viewMode={1}
+        aspectRatio={16 / 9}
+        viewMode={3}
         autoCrop={false}
         background={true}
         cropBoxMovable={false}
@@ -42,6 +41,7 @@ const PreviewImage = ({ imgurl }) => {
         minContainerWidth={288}
         minCanvasWidth={288}
         minCanvasHeight={288}
+        toggleDragModeOnDblclick={false}
       />
       <input
         value={zoomVal}
