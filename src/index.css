@@ -78,7 +78,11 @@
     }
 
     .image-container .image-section {
-        @apply overflow-hidden ring-4 ring-slate-200 aspect-square w-full mb-5 lg:mb-8
+        @apply overflow-hidden ring-4 ring-slate-200 aspect-square mb-5 lg:mb-8
+    }
+
+    .image-container .image-section img {
+        @apply object-cover w-auto h-full
     }
 
     .slider {
