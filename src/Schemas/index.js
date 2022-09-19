@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import dayjs from "dayjs";
 
-const SUPPORTED_FILE_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
+const SUPPORTED_FILE_FORMATS = ["image/jpeg", "image/png"];
 
 export const signupSchema = yup.object().shape({
   email: yup
