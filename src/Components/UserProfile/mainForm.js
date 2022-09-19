@@ -9,6 +9,7 @@ import {
   picSchema,
 } from "../../Schemas/index";
 import PreviewImage from "./previewImage";
+import Compressor from "compressorjs";
 
 const inputSchemas = [
   nameSchema,
@@ -209,12 +210,19 @@ const FormikStepper = ({ children, ...props }) => {
 const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
   const [modalOn, setModalOn] = useState(false);
 
-  const handleFileChange = (file) => {
-    if (file) {
-      if (imgSrc) {
-        URL.revokeObjectURL(imgSrc);
-      }
-      setImgSrc(URL.createObjectURL(file));
+  const handleFileChange = (image) => {
+    if (image) {
+      new Compressor(image, {
+        quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
+        success: (compressedResult) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(compressedResult);
+
+          reader.onload = (e) => {
+            setImgSrc({ url: e.target.result, type: image.type });
+          };
+        },
+      });
     }
   };
 
@@ -230,28 +238,28 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
         id="pic"
         name="pic"
         type="file"
-        accept="image/png, image/jpeg, image/png"
+        accept="image/png, image/jpeg"
         className={`${
           picErr ? "invalid-input " : "valid-input "
         }input upload-file`}
         onChange={(event) => {
           handleFileChange(event.currentTarget.files[0]);
+          setFieldValue("pic", event.currentTarget.files[0]);
           setModalOn(true);
         }}
       />
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
       <div className="image-section">
-        {picVal && <img src={picVal} alt="profile-pic" />}
+        {!picErr && picVal && <img src={picVal.url} alt="profile-pic" />}
       </div>
-      {imgSrc && modalOn && (
-        <div className="image-section">
-          <PreviewImage
-            setFieldValue={setFieldValue}
-            imgurl={imgSrc}
-            setModalOn={setModalOn}
-          />
-        </div>
+
+      {!picErr && imgSrc && modalOn && (
+        <PreviewImage
+          setFieldValue={setFieldValue}
+          img={imgSrc}
+          setModalOn={setModalOn}
+        />
       )}
     </div>
   );
