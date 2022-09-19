@@ -77,12 +77,8 @@
         @apply absolute opacity-0 top-0 left-0 p-1 lg:p-2 mb-3 rounded-full cursor-pointer
     }
 
-    .image-container .image-section {
-        @apply overflow-hidden ring-4 ring-slate-200 aspect-square mb-5 lg:mb-8
-    }
-
-    .image-container .image-section img {
-        @apply object-cover w-auto h-full
+    .image-section {
+        @apply overflow-hidden w-60 lg:w-72 bg-slate-200 max-h-[15rem] mb-5 lg:mb-8
     }
 
     .slider {
