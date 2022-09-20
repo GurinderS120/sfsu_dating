@@ -9,7 +9,7 @@ import {
   picSchema,
 } from "../../Schemas/index";
 import PreviewImage from "./previewImage";
-import Compressor from "compressorjs";
+import Compress from "browser-image-compression";
 
 const inputSchemas = [
   nameSchema,
@@ -210,19 +210,21 @@ const FormikStepper = ({ children, ...props }) => {
 const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
   const [modalOn, setModalOn] = useState(false);
 
-  const handleFileChange = (image) => {
+  const handleFileChange = async (image) => {
     if (image) {
-      new Compressor(image, {
-        quality: 0.6, // 0.6 can also be used, but its not recommended to go below.
-        success: (compressedResult) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(compressedResult);
+      const options = {
+        maxWidthOrHeight: 1024,
+        useWebWorker: true,
+      };
 
-          reader.onload = (e) => {
-            setImgSrc({ url: e.target.result, type: image.type });
-          };
-        },
-      });
+      const compressedImage = await Compress(image, options);
+
+      const reader = new FileReader();
+      reader.readAsDataURL(compressedImage);
+
+      reader.onload = (e) => {
+        setImgSrc({ url: e.target.result, type: image.type });
+      };
     }
   };
 
@@ -251,7 +253,7 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
       <div className="image-section">
-        {!picErr && picVal && <img src={picVal.url} alt="profile-pic" />}
+        {!picErr && picVal && <img src={picVal.url} alt="profile pic" />}
       </div>
 
       {!picErr && imgSrc && modalOn && (
