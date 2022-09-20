@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Cropper from "react-cropper";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
@@ -26,9 +26,9 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
     const cropper = imgEle.cropper;
     const imgUrl = {
       url: cropper
-        .setCropBoxData({ left: 0, top: 0, width: 288, height: 240 })
+        .setCropBoxData({ left: 0, top: 0, width: 288 })
         .getCroppedCanvas()
-        .toDataURL(img.type, 0.5),
+        .toDataURL(img.type),
       type: "image/jpeg",
     };
     setFieldValue("pic", imgUrl);
@@ -73,7 +73,7 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
           value={zoomVal}
           type="range"
           min="-0.3"
-          max="1"
+          max="0.3"
           step="0.02"
           className="slider"
           onChange={handleZoomChange}
