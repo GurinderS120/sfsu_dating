@@ -130,7 +130,6 @@ const MainForm = () => {
 const FormikStepper = ({ children, ...props }) => {
   const childArr = React.Children.toArray(children);
   const [step, setStep] = useState(0);
-  const [imgSrc, setImgSrc] = useState(null);
 
   const isLastStep = () => {
     return step === childArr.length - 1;
@@ -181,8 +180,6 @@ const FormikStepper = ({ children, ...props }) => {
                   setFieldValue={setFieldValue}
                   picVal={values.pic}
                   picErr={errors.pic}
-                  imgSrc={imgSrc}
-                  setImgSrc={setImgSrc}
                 />
               </>
             ) : (
@@ -207,7 +204,7 @@ const FormikStepper = ({ children, ...props }) => {
   );
 };
 
-const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
+const FileInput = ({ setFieldValue, picVal, picErr }) => {
   const [modalOn, setModalOn] = useState(false);
 
   const handleFileChange = async (file) => {
@@ -223,7 +220,7 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
       reader.readAsDataURL(compressedImage);
 
       reader.onload = (e) => {
-        setImgSrc({ url: e.target.result, type: file.type });
+        setFieldValue("pic", { url: e.target.result, type: file.type });
       };
     }
   };
@@ -246,7 +243,6 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
         }input upload-file`}
         onChange={(event) => {
           if (event.currentTarget.files[0]) {
-            setFieldValue("pic", event.currentTarget.files[0]);
             handleFileChange(event.currentTarget.files[0]);
             setModalOn(true);
           }
@@ -254,16 +250,16 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
       />
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
-      {!picErr && imgSrc && (
+      {!picErr && picVal && (
         <div className="image-section">
-          <img src={imgSrc.url} alt="profile pic" />
+          <img src={picVal.url} alt="profile pic" />
         </div>
       )}
 
-      {!picErr && imgSrc && modalOn && (
+      {!picErr && picVal && modalOn && (
         <PreviewImage
           setFieldValue={setFieldValue}
-          img={imgSrc}
+          img={picVal}
           setModalOn={setModalOn}
         />
       )}

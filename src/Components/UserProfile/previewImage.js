@@ -29,7 +29,7 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
         .setCropBoxData({ left: 0, top: 0, width: 288 })
         .getCroppedCanvas()
         .toDataURL(img.type),
-      type: "image/jpeg",
+      type: img.type,
     };
     setFieldValue("pic", imgUrl);
     setModalOn(false);
