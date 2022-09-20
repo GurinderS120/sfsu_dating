@@ -78,11 +78,11 @@
     }
 
     .image-section {
-        @apply overflow-hidden w-60 lg:w-72 bg-slate-200 max-h-[15rem] mb-5 lg:mb-8
+        @apply overflow-hidden w-60 lg:w-72 max-h-[15rem] mb-[0.5rem]
     }
 
     .slider {
-        @apply w-full h-2 bg-slate-200 mt-4 mb-4 appearance-none cursor-pointer
+        @apply w-60 lg:w-72 h-2 bg-slate-200 mt-4 mb-4 appearance-none cursor-pointer
     }
 
     .slider::-webkit-slider-thumb {
