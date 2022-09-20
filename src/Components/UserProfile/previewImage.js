@@ -36,7 +36,6 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
   };
 
   const handleCancel = () => {
-    setFieldValue("pic", null);
     setModalOn(false);
   };
 

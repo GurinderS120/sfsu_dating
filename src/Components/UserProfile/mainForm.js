@@ -211,7 +211,7 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
   const [modalOn, setModalOn] = useState(false);
 
   const handleFileChange = async (file) => {
-    if (["image/jpeg", "image/png"].includes(file.type)) {
+    if (file && ["image/jpeg", "image/png"].includes(file.type)) {
       const options = {
         maxWidthOrHeight: 1024,
         useWebWorker: true,
@@ -245,16 +245,18 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
           picErr ? "invalid-input " : "valid-input "
         }input upload-file`}
         onChange={(event) => {
-          setFieldValue("pic", event.currentTarget.files[0]);
-          handleFileChange(event.currentTarget.files[0]);
-          setModalOn(true);
+          if (event.currentTarget.files[0]) {
+            setFieldValue("pic", event.currentTarget.files[0]);
+            handleFileChange(event.currentTarget.files[0]);
+            setModalOn(true);
+          }
         }}
       />
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
-      {!picErr && picVal && picVal.url && (
+      {!picErr && imgSrc && (
         <div className="image-section">
-          <img src={picVal.url} alt="profile pic" />
+          <img src={imgSrc.url} alt="profile pic" />
         </div>
       )}
 
