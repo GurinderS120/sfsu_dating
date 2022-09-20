@@ -210,20 +210,20 @@ const FormikStepper = ({ children, ...props }) => {
 const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
   const [modalOn, setModalOn] = useState(false);
 
-  const handleFileChange = async (image) => {
-    if (image) {
+  const handleFileChange = async (file) => {
+    if (["image/jpeg", "image/png"].includes(file.type)) {
       const options = {
         maxWidthOrHeight: 1024,
         useWebWorker: true,
       };
 
-      const compressedImage = await Compress(image, options);
+      const compressedImage = await Compress(file, options);
 
       const reader = new FileReader();
       reader.readAsDataURL(compressedImage);
 
       reader.onload = (e) => {
-        setImgSrc({ url: e.target.result, type: image.type });
+        setImgSrc({ url: e.target.result, type: file.type });
       };
     }
   };
@@ -245,16 +245,18 @@ const FileInput = ({ setFieldValue, picVal, picErr, imgSrc, setImgSrc }) => {
           picErr ? "invalid-input " : "valid-input "
         }input upload-file`}
         onChange={(event) => {
-          handleFileChange(event.currentTarget.files[0]);
           setFieldValue("pic", event.currentTarget.files[0]);
+          handleFileChange(event.currentTarget.files[0]);
           setModalOn(true);
         }}
       />
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
-      <div className="image-section">
-        {!picErr && picVal && <img src={picVal.url} alt="profile pic" />}
-      </div>
+      {!picErr && picVal && picVal.url && (
+        <div className="image-section">
+          <img src={picVal.url} alt="profile pic" />
+        </div>
+      )}
 
       {!picErr && imgSrc && modalOn && (
         <PreviewImage
