@@ -78,7 +78,7 @@
     }
 
     .image-section {
-        @apply overflow-hidden w-60 lg:w-72 max-h-[15rem] mb-[0.5rem]
+        @apply overflow-hidden w-60 lg:w-72 max-h-[15rem] mb-[0.5rem] ring-slate-200 ring-4
     }
 
     .slider {
