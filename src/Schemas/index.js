@@ -13,13 +13,13 @@ export const signupSchema = yup.object().shape({
   password: yup
     .string()
     .min(8)
-    .matches(/(?=.*[a-z])/, {
+    .matches(/(.*[a-z])/, {
       message: "Password must contain at least one lowercase letter",
     })
-    .matches(/(?=.*[A-Z])/, {
+    .matches(/(.*[A-Z])/, {
       message: "Password must contain at least one uppercase letter",
     })
-    .matches(/(?=.*\d)/, {
+    .matches(/(.*\d)/, {
       message: "Password must contain at least one number",
     })
     .required("Required"),
@@ -39,13 +39,13 @@ export const signinSchema = yup.object().shape({
   password: yup
     .string()
     .min(8)
-    .matches(/(?=.*[a-z])/, {
+    .matches(/(.*[a-z])/, {
       message: "Password must contain at least one lowercase letter",
     })
-    .matches(/(?=.*[A-Z])/, {
+    .matches(/(.*[A-Z])/, {
       message: "Password must contain at least one uppercase letter",
     })
-    .matches(/(?=.*\d)/, {
+    .matches(/(.*\d)/, {
       message: "Password must contain at least one number",
     })
     .required("Required"),
@@ -54,8 +54,12 @@ export const signinSchema = yup.object().shape({
 export const nameSchema = yup.object().shape({
   name: yup
     .string()
-    .min(2, "Name must be at least 2 characters long")
-    .max(22)
+    .min(1, "Name must be at least 1 character long")
+    .max(100, "Please enter a nickname")
+    .matches(
+      /^[\S]+(\s+[\S]+)*$/,
+      "Please remove spaces from the beginning and end"
+    )
     .required("Required"),
 });
 
