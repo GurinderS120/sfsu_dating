@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Form, Formik, useField } from "formik";
 import { AiOutlinePlus } from "react-icons/ai";
 import {
@@ -206,6 +206,7 @@ const FormikStepper = ({ children, ...props }) => {
 
 const FileInput = ({ setFieldValue, picVal, picErr }) => {
   const [modalOn, setModalOn] = useState(false);
+  const fileRef = useRef(null);
 
   const handleFileChange = async (file) => {
     if (file && ["image/jpeg", "image/png"].includes(file.type)) {
@@ -227,13 +228,8 @@ const FileInput = ({ setFieldValue, picVal, picErr }) => {
 
   return (
     <div className="image-container">
-      <button
-        className="text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-1 lg:p-2 mb-3 rounded-full"
-        type="button"
-      >
-        <AiOutlinePlus className="text-white" />
-      </button>
       <input
+        ref={fileRef}
         id="pic"
         name="pic"
         type="file"
@@ -243,11 +239,19 @@ const FileInput = ({ setFieldValue, picVal, picErr }) => {
         }input upload-file`}
         onChange={(event) => {
           if (event.currentTarget.files[0]) {
+            setFieldValue("pic", event.currentTarget.files[0]);
             handleFileChange(event.currentTarget.files[0]);
             setModalOn(true);
           }
         }}
       />
+      <button
+        className="text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-1 lg:p-2 mb-3 rounded-full"
+        type="button"
+        onClick={() => fileRef.current.click()}
+      >
+        <AiOutlinePlus className="text-white" />
+      </button>
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
       {!picErr && picVal && (

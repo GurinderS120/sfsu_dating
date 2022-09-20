@@ -74,7 +74,7 @@
     }
 
     .image-container .upload-file {
-        @apply absolute opacity-0 top-0 left-0 p-1 lg:p-2 mb-3 rounded-full cursor-pointer
+        @apply hidden
     }
 
     .image-section {
