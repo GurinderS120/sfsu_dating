@@ -73,14 +73,14 @@ const MainForm = () => {
         <InputField name="birthday" type="date" />
         <ErrorMessage component="p" name="birthday" className="inp-err-mssg" />
       </div>
-      <div className="ml-8">
+      <div className="ml-4">
         <h3 className="form-step-header">Gender</h3>
         <RadioField name="gender" value="Female" type="radio" />
         <RadioField name="gender" value="Male" type="radio" />
         <RadioField name="gender" value="Non-binary" type="radio" />
         <ErrorMessage component="p" name="gender" className="inp-err-mssg" />
       </div>
-      <div className="ml-8">
+      <div className="ml-4">
         <h3 className="form-step-header">Interested In</h3>
         <RadioField name="interest" value="Men" type="radio" />
         <RadioField name="interest" value="Women" type="radio" />
