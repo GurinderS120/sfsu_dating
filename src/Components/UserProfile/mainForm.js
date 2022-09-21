@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Form, Formik, useField } from "formik";
+import { Form, Formik, useField, ErrorMessage } from "formik";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import {
@@ -32,10 +32,18 @@ const InputField = ({ ...props }) => {
         {...field}
         {...props}
       />
-      {meta.error && meta.touched && (
-        <p className="inp-err-mssg">{meta.error}</p>
-      )}
     </>
+  );
+};
+
+const RadioField = ({ ...props }) => {
+  const [field] = useField(props);
+
+  return (
+    <label className="flex flex-row justify-between mb-2 w-[10rem]">
+      {props.value}
+      <input className="w-3 ml-16" {...field} {...props} />
+    </label>
   );
 };
 
@@ -58,70 +66,26 @@ const MainForm = () => {
       <div>
         <h3 className="form-step-header">Name</h3>
         <InputField name="name" type="text" placeholder="Name" />
+        <ErrorMessage component="p" name="name" className="inp-err-mssg" />
       </div>
       <div>
         <h3 className="form-step-header">Birthday</h3>
         <InputField name="birthday" type="date" />
+        <ErrorMessage component="p" name="birthday" className="inp-err-mssg" />
       </div>
       <div className="ml-8">
         <h3 className="form-step-header">Gender</h3>
-        <label className="flex flex-row mb-2">
-          Female
-          <InputField
-            className="w-3 ml-16"
-            name="gender"
-            type="radio"
-            value="female"
-          />
-        </label>
-        <label className="flex flex-row mb-2">
-          Male
-          <InputField
-            className="w-3 ml-20"
-            name="gender"
-            type="radio"
-            value="male"
-          />
-        </label>
-        <label className="flex flex-row mb-2">
-          Non-binary
-          <InputField
-            className="w-3 ml-[2.1rem]"
-            name="gender"
-            type="radio"
-            value="Non-binary"
-          />
-        </label>
+        <RadioField name="gender" value="Female" type="radio" />
+        <RadioField name="gender" value="Male" type="radio" />
+        <RadioField name="gender" value="Non-binary" type="radio" />
+        <ErrorMessage component="p" name="gender" className="inp-err-mssg" />
       </div>
       <div className="ml-8">
         <h3 className="form-step-header">Interested In</h3>
-        <label className="flex flex-row mb-2">
-          Men
-          <InputField
-            className="w-3 ml-20"
-            name="interest"
-            type="radio"
-            value="men"
-          />
-        </label>
-        <label className="flex flex-row mb-2">
-          Women
-          <InputField
-            className="w-3 ml-14"
-            name="interest"
-            type="radio"
-            value="women"
-          />
-        </label>
-        <label className="flex flex-row mb-2">
-          Both
-          <InputField
-            className="w-3 ml-[4.9rem]"
-            name="interest"
-            type="radio"
-            value="both"
-          />
-        </label>
+        <RadioField name="interest" value="Men" type="radio" />
+        <RadioField name="interest" value="Women" type="radio" />
+        <RadioField name="interest" value="Both" type="radio" />
+        <ErrorMessage component="p" name="interest" className="inp-err-mssg" />
       </div>
       <div></div>
     </FormikStepper>
