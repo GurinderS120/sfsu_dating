@@ -40,7 +40,7 @@ const RadioField = ({ ...props }) => {
   const [field] = useField(props);
 
   return (
-    <label className="flex flex-row justify-between mb-2 w-[10rem]">
+    <label className="flex flex-row justify-between mb-2 w-[11rem]">
       {props.value}
       <input className="w-3 ml-16" {...field} {...props} />
     </label>
@@ -94,6 +94,7 @@ const MainForm = () => {
 
 const FormikStepper = ({ children, ...props }) => {
   const childArr = React.Children.toArray(children);
+  const [orgImg, setOrgImg] = useState(null);
   const [step, setStep] = useState(0);
 
   const isLastStep = () => {
@@ -145,6 +146,8 @@ const FormikStepper = ({ children, ...props }) => {
                   setFieldValue={setFieldValue}
                   picVal={values.pic}
                   picErr={errors.pic}
+                  orgImg={orgImg}
+                  setOrgImg={setOrgImg}
                 />
               </>
             ) : (
@@ -169,9 +172,8 @@ const FormikStepper = ({ children, ...props }) => {
   );
 };
 
-const FileInput = ({ setFieldValue, picVal, picErr }) => {
+const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
   const [modalOn, setModalOn] = useState(false);
-  const [orgImg, setOrgImg] = useState(null);
   const fileRef = useRef(null);
 
   const handleFileChange = async (file) => {
