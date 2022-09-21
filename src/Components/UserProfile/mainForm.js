@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Form, Formik, useField } from "formik";
 import { AiOutlinePlus } from "react-icons/ai";
+import { FiEdit2 } from "react-icons/fi";
 import {
   genderSchema,
   nameSchema,
@@ -245,13 +246,27 @@ const FileInput = ({ setFieldValue, picVal, picErr }) => {
           }
         }}
       />
-      <button
-        className="text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-1 lg:p-2 mb-3 rounded-full"
-        type="button"
-        onClick={() => fileRef.current.click()}
-      >
-        <AiOutlinePlus className="text-white" />
-      </button>
+
+      <div className="flex flex-row justify-between">
+        <button
+          className="image-upload-edit-btn"
+          type="button"
+          onClick={() => fileRef.current.click()}
+        >
+          <AiOutlinePlus className="text-white" />
+        </button>
+
+        {!picErr && picVal && (
+          <button
+            className="image-upload-edit-btn"
+            type="button"
+            onClick={() => setModalOn(true)}
+          >
+            <FiEdit2 className="text-white" />
+          </button>
+        )}
+      </div>
+
       {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
 
       {!picErr && picVal && (

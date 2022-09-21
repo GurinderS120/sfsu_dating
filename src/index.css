@@ -77,6 +77,10 @@
         @apply hidden
     }
 
+    .image-upload-edit-btn {
+        @apply text-xl bg-gradient-to-r from-green-400 to-blue-500 hover:from-pink-500 hover:to-yellow-500 p-1 lg:p-2 mb-3 rounded-full
+    }
+
     .image-section {
         @apply overflow-hidden w-60 lg:w-72 max-h-[15rem] mb-[0.5rem] ring-slate-200 ring-4
     }
