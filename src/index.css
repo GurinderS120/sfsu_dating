@@ -89,6 +89,18 @@
         @apply w-60 lg:w-72 h-2 bg-slate-200 mt-4 mb-4 appearance-none cursor-pointer
     }
 
+    .modal-container {
+        @apply bg-[#000000d5] opacity-100 flex flex-col md:justify-center md:items-center fixed inset-0 z-50 
+    }
+
+    .modal-content-wrapper {
+        @apply flex flex-col h-screen md:h-[30rem] justify-center bg-white md:w-[70%] max-w-[40rem] rounded-xl opacity-100 items-center
+    }
+
+    .modal-content {
+        @apply flex flex-row justify-between w-[15rem] lg:w-[18rem]
+    }
+
     .slider::-webkit-slider-thumb {
         @apply appearance-none w-[1.3rem] h-[1.3rem] outline-none border-slate-50 rounded-full bg-gradient-to-r from-green-400 to-blue-500 cursor-pointer
     }

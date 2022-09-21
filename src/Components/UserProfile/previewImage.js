@@ -40,13 +40,21 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
   };
 
   return (
-    <div className="bg-white opacity-100 fixed inset-0 z-50">
-      <div className="flex flex-col h-screen justify-center items-center">
-        <div className="flex">
-          <button type="button" onClick={handleCancel}>
+    <div className="modal-container">
+      <div className="modal-content-wrapper">
+        <div className="modal-content">
+          <button
+            type="button"
+            className="image-upload-edit-btn text-white"
+            onClick={handleCancel}
+          >
             <AiOutlineClose />
           </button>
-          <button type="button" onClick={handleChoose}>
+          <button
+            type="button"
+            className="image-upload-edit-btn text-white"
+            onClick={handleChoose}
+          >
             <AiOutlineCheck />
           </button>
         </div>

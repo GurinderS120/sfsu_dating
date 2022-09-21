@@ -171,6 +171,7 @@ const FormikStepper = ({ children, ...props }) => {
 
 const FileInput = ({ setFieldValue, picVal, picErr }) => {
   const [modalOn, setModalOn] = useState(false);
+  const [orgImg, setOrgImg] = useState(null);
   const fileRef = useRef(null);
 
   const handleFileChange = async (file) => {
@@ -187,6 +188,7 @@ const FileInput = ({ setFieldValue, picVal, picErr }) => {
 
       reader.onload = (e) => {
         setFieldValue("pic", { url: e.target.result, type: file.type });
+        setOrgImg({ url: e.target.result, type: file.type });
       };
     }
   };
@@ -239,10 +241,10 @@ const FileInput = ({ setFieldValue, picVal, picErr }) => {
         </div>
       )}
 
-      {!picErr && picVal && modalOn && (
+      {!picErr && orgImg && modalOn && (
         <PreviewImage
           setFieldValue={setFieldValue}
-          img={picVal}
+          img={orgImg}
           setModalOn={setModalOn}
         />
       )}
