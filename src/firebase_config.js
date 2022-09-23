@@ -12,6 +12,7 @@ const firebaseConfig = {
   projectId: "sfsu-dating",
   storageBucket: "sfsu-dating.appspot.com",
   messagingSenderId: "739598633014",
+  databaseURL: "https://sfsu-dating-default-rtdb.firebaseio.com",
   appId: "1:739598633014:web:21dc9c4f6f05b10845f097",
   measurementId: "G-B3LDH05L5X",
 };

@@ -12,6 +12,10 @@ import {
 import PreviewImage from "./previewImage";
 import Compress from "browser-image-compression";
 
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
+import { app } from "../../firebase_config";
+
 const inputSchemas = [
   nameSchema,
   birthdaySchema,
@@ -20,6 +24,9 @@ const inputSchemas = [
   picSchema,
 ];
 
+// InputField and RadioField are custom components that use
+// Formik's useField() which is a react hook that automatically
+// connects inputs to Formik
 const InputField = ({ ...props }) => {
   const [field, meta] = useField(props);
 
@@ -47,11 +54,32 @@ const RadioField = ({ ...props }) => {
   );
 };
 
-const MainForm = () => {
-  const submitProfile = (values, action) => {
-    console.log(values);
-  };
+// This function is responsible for connecting with Firebase backend and
+// submitting userprofile
+const submitProfile = (values, action) => {
+  const auth = getAuth(app);
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const db = getDatabase(app);
+      set(ref(db, `users/${user.uid}/userprofile`), {
+        name: values.name,
+        birthday: values.birthday,
+        gender: values.gender,
+        interest: values.interest,
+        pic: values.pic,
+      });
+    } else {
+      console.log("No user is signed in");
+    }
+  });
+};
+
+// MainForm contains all the parts of the userProfile form, but we don't
+// display them all at once. Instead we use the FormikStepper custom component
+// to display each part separately like a multi-step form.
+
+const MainForm = () => {
   return (
     <FormikStepper
       initialValues={{
@@ -92,6 +120,25 @@ const MainForm = () => {
   );
 };
 
+// This function is responsible for returning different css class representing
+// corresponding form progress
+const getProgress = (step) => {
+  switch (step) {
+    case 0:
+      return "progress-bar-0";
+    case 1:
+      return "progress-bar-1";
+    case 2:
+      return "progress-bar-2";
+    case 3:
+      return "progress-bar-3";
+    default:
+      return "progress-bar-4";
+  }
+};
+
+// FormikStepper will be passed all the different parts/steps of the multi-step
+// form in the children prop
 const FormikStepper = ({ children, ...props }) => {
   const childArr = React.Children.toArray(children);
   const [orgImg, setOrgImg] = useState(null);
@@ -99,21 +146,6 @@ const FormikStepper = ({ children, ...props }) => {
 
   const isLastStep = () => {
     return step === childArr.length - 1;
-  };
-
-  const getProgress = () => {
-    switch (step) {
-      case 0:
-        return "progress-bar-0";
-      case 1:
-        return "progress-bar-1";
-      case 2:
-        return "progress-bar-2";
-      case 3:
-        return "progress-bar-3";
-      default:
-        return "progress-bar-4";
-    }
   };
 
   return (
@@ -132,7 +164,7 @@ const FormikStepper = ({ children, ...props }) => {
         <>
           <div className="progress-bar">
             <div className="progress-bar-bg">
-              <div className={`progress-bar-fg ${getProgress()}`}></div>
+              <div className={`progress-bar-fg ${getProgress(step)}`}></div>
             </div>
           </div>
           <Form
@@ -172,10 +204,15 @@ const FormikStepper = ({ children, ...props }) => {
   );
 };
 
+// Since the file/image part of the form is more involving and complex then
+// the other parts we create a separate component for it
 const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
   const [modalOn, setModalOn] = useState(false);
   const fileRef = useRef(null);
 
+  // This function is responsible for compressing and converting file into
+  // base64 encoded string which can be used as a url in src attribute of
+  // an image html tag
   const handleFileChange = async (file) => {
     if (file && ["image/jpeg", "image/png"].includes(file.type)) {
       const options = {
