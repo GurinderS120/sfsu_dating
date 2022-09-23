@@ -4,6 +4,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
 import "cropperjs/dist/cropper.css";
 
+// This Component is responsible for displaying modal(pop up) where a user
+// can edit their uploaded image using Cropper.js
 const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
   const cropperRef = useRef(null);
   const [zoomVal, setZoomVal] = useState(0);

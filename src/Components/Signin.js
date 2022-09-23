@@ -6,28 +6,29 @@ import { Link } from "react-router-dom";
 
 const auth = getAuth(app);
 
-const Signin = () => {
-  const signin = async (values, actions) => {
-    console.log("In signin");
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
-      if (!userCredential.user.emailVerified) {
-        console.log("Please verify your email first");
-        signOut(auth);
-      } else {
-        console.log("User is verified");
-      }
-
-      actions.resetForm();
-    } catch (err) {
-      console.log(err);
+const signin = async (values, actions) => {
+  console.log("In signin");
+  try {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      values.email,
+      values.password
+    );
+    if (!userCredential.user.emailVerified) {
+      console.log("Please verify your email first");
+      signOut(auth);
+    } else {
+      console.log("User is verified");
     }
-  };
 
+    actions.resetForm();
+  } catch (err) {
+    alert(err.message);
+  }
+};
+
+const Signin = () => {
+  // Initialize state values
   const {
     values,
     errors,
