@@ -17,12 +17,12 @@ interface Values {
 
 const signin = async (values: Values, actions: FormikHelpers<Values>) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
+    const userInfo = await signInWithEmailAndPassword(
       auth,
       values.email,
       values.password
     );
-    if (!userCredential.user.emailVerified) {
+    if (!userInfo.user.emailVerified) {
       alert("Please verify your email first");
       signOut(auth);
     }
@@ -52,7 +52,7 @@ const Signin = () => (
           <button className="btn mt-4" type="submit">
             Login
           </button>
-          <h6 className="mt-6 lg:text-center">
+          <h6 className="mt-6 text-sm lg:text-base text-center">
             Don't have an account?
             <Link to="/signup" className="ml-1 lg-nav-links">
               Sign up
