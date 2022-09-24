@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-import { app } from "../firebase_config";
+import { app } from "../firebase_config.ts";
 import { useFormik } from "formik";
-import { signinSchema } from "../Schemas/index";
+import { signinSchema } from "../Schemas/index.ts";
 import { Link } from "react-router-dom";
 
 const auth = getAuth(app);

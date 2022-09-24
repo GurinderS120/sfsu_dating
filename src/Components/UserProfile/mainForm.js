@@ -8,13 +8,13 @@ import {
   birthdaySchema,
   interestSchema,
   picSchema,
-} from "../../Schemas/index";
+} from "../../Schemas/index.ts";
 import PreviewImage from "./previewImage";
 import Compress from "browser-image-compression";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
-import { app } from "../../firebase_config";
+import { app } from "../../firebase_config.ts";
 
 const inputSchemas = [
   nameSchema,

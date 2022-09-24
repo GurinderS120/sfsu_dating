@@ -4,10 +4,10 @@ import {
   sendEmailVerification,
   signOut,
 } from "firebase/auth";
-import { app } from "../firebase_config";
+import { app } from "../firebase_config.ts";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
-import { signupSchema } from "../Schemas";
+import { signupSchema } from "../Schemas/index.ts";
 
 const auth = getAuth(app);
 
