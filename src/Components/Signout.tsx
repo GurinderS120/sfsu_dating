@@ -1,13 +1,14 @@
 import { getAuth, signOut } from "firebase/auth";
-import { app } from "../firebase_config.ts";
+import React from "react";
+import { app } from "../firebase_config";
 
 const auth = getAuth(app);
 
-const Signout = () => {
-  const signout = async (e) => {
-    await signOut(auth);
-  };
+const signout = async () => {
+  await signOut(auth);
+};
 
+const Signout = () => {
   return <button onClick={signout}>Logout</button>;
 };
 
