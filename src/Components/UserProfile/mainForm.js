@@ -78,7 +78,6 @@ const submitProfile = (values, action) => {
 // MainForm contains all the parts of the userProfile form, but we don't
 // display them all at once. Instead we use the FormikStepper custom component
 // to display each part separately like a multi-step form.
-
 const MainForm = () => {
   return (
     <FormikStepper
