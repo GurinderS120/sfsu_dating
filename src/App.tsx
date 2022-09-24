@@ -1,4 +1,3 @@
-import "./App.css";
 import Home from "./Components/Home";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
@@ -6,6 +5,7 @@ import MainForm from "./Components/UserProfile/mainForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signout from "./Components/Signout";
 import Navbar from "./Components/Navbar";
+import React from "react";
 
 function App() {
   return (
