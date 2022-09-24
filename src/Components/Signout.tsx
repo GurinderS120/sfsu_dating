@@ -2,9 +2,8 @@ import { getAuth, signOut } from "firebase/auth";
 import React from "react";
 import { app } from "../firebase_config";
 
-const auth = getAuth(app);
-
 const signout = async () => {
+  const auth = getAuth(app);
   await signOut(auth);
 };
 

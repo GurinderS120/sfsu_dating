@@ -12,8 +12,6 @@ import { signupSchema } from "../Schemas/index";
 import HandleError from "../ErrorHandling";
 import React from "react";
 
-const auth = getAuth(app);
-
 // Create an interface of values that we will be using in our form
 interface Values {
   email: string;
@@ -22,6 +20,8 @@ interface Values {
 }
 
 const signup = async (values: Values, actions: FormikHelpers<Values>) => {
+  const auth = getAuth(app);
+
   try {
     const userInfo = await createUserWithEmailAndPassword(
       auth,

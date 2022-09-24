@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 import React from "react";
 import HandleError from "../ErrorHandling";
 
-const auth = getAuth(app);
-
 // Create an interface of values that we will be using in our form
 interface Values {
   email: string;
@@ -16,6 +14,8 @@ interface Values {
 }
 
 const signin = async (values: Values, actions: FormikHelpers<Values>) => {
+  const auth = getAuth(app);
+
   try {
     const userInfo = await signInWithEmailAndPassword(
       auth,
