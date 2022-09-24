@@ -32,42 +32,36 @@ const signin = async (values: Values, actions: FormikHelpers<Values>) => {
   }
 };
 
-const Signin = () => {
-  return (
-    <Formik
-      initialValues={{ email: "", password: "" }}
-      onSubmit={signin}
-      validationSchema={signinSchema}
-    >
-      <div>
-        <div className="h-screen flex flex-col lg:flex-row items-center justify-center">
-          <Form className="flex flex-col w-60 lg:form-container">
-            <InputField type="email" name="email" placeholder="Email" />
-            <ErrorMessage component="p" name="email" className="inp-err-mssg" />
-            <InputField
-              type="password"
-              name="password"
-              placeholder="Password"
-            />
-            <ErrorMessage
-              component="p"
-              name="password"
-              className="inp-err-mssg"
-            />
-            <button className="btn mt-4" type="submit">
-              Login
-            </button>
-            <h6 className="mt-6 lg:text-center">
-              Don't have an account?
-              <Link to="/signup" className="ml-1 lg-nav-links">
-                Sign up
-              </Link>
-            </h6>
-          </Form>
-        </div>
+const Signin = () => (
+  <Formik
+    initialValues={{ email: "", password: "" }}
+    onSubmit={signin}
+    validationSchema={signinSchema}
+  >
+    <div>
+      <div className="h-screen flex flex-col lg:flex-row items-center justify-center">
+        <Form className="flex flex-col w-60 lg:form-container">
+          <InputField type="email" name="email" placeholder="Email" />
+          <ErrorMessage component="p" name="email" className="inp-err-mssg" />
+          <InputField type="password" name="password" placeholder="Password" />
+          <ErrorMessage
+            component="p"
+            name="password"
+            className="inp-err-mssg"
+          />
+          <button className="btn mt-4" type="submit">
+            Login
+          </button>
+          <h6 className="mt-6 lg:text-center">
+            Don't have an account?
+            <Link to="/signup" className="ml-1 lg-nav-links">
+              Sign up
+            </Link>
+          </h6>
+        </Form>
       </div>
-    </Formik>
-  );
-};
+    </div>
+  </Formik>
+);
 
 export default Signin;
