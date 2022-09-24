@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import HomeImg from "../Images/pexels-pixabay-33109.jpg";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const Home = () => {
   return (

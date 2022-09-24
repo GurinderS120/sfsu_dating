@@ -1,13 +1,20 @@
 import { signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-import { app } from "../firebase_config.ts";
-import { useFormik } from "formik";
-import { signinSchema } from "../Schemas/index.ts";
+import { app } from "../firebase_config";
+import { useFormik, FormikHelpers } from "formik";
+import { signinSchema } from "../Schemas/index";
 import { Link } from "react-router-dom";
+import React from "react";
+import HandleError from "../ErrorHandling";
 
 const auth = getAuth(app);
 
-const signin = async (values, actions) => {
-  console.log("In signin");
+// Create an interface of values that we will be using in our form
+interface Values {
+  email: string;
+  password: string;
+}
+
+const signin = async (values: Values, actions: FormikHelpers<Values>) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -15,15 +22,12 @@ const signin = async (values, actions) => {
       values.password
     );
     if (!userCredential.user.emailVerified) {
-      console.log("Please verify your email first");
+      alert("Please verify your email first");
       signOut(auth);
-    } else {
-      console.log("User is verified");
     }
-
     actions.resetForm();
-  } catch (err) {
-    alert(err.message);
+  } catch (error) {
+    HandleError(error);
   }
 };
 
