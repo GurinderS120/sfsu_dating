@@ -102,7 +102,6 @@ const FileInput = ({
           )}
         </div>
 
-        {/* {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>} */}
         <ErrorMessage name="pic" component="p" className="inp-err-mssg mb-2" />
 
         {!picErr && picVal.url && (
