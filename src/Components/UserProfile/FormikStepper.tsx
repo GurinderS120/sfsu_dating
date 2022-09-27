@@ -1,5 +1,6 @@
+import { Values } from "./MainForm";
+import { Form, Formik, FormikHelpers } from "formik";
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
 import FileInput from "./FileInput";
 import {
   genderSchema,
@@ -7,7 +8,7 @@ import {
   birthdaySchema,
   interestSchema,
   picSchema,
-} from "../../Schemas/index.ts";
+} from "../../Schemas/index";
 
 const inputSchemas = [
   nameSchema,
@@ -19,7 +20,7 @@ const inputSchemas = [
 
 // This function is responsible for returning different css class representing
 // corresponding form progress
-const getProgress = (step) => {
+const getProgress = (step: number) => {
   switch (step) {
     case 0:
       return "progress-bar-0";
@@ -34,9 +35,22 @@ const getProgress = (step) => {
   }
 };
 
+// Create an interface of values that we will be using for FormikStepper
+interface FormikStepperProps {
+  initialValues: {
+    name: string;
+    birthday: string;
+    gender: string;
+    interest: string;
+    pic: { url: string; type: string };
+  };
+  onSubmit(values: Values, action: FormikHelpers<Values>): void;
+  children: React.ReactNode;
+}
+
 // FormikStepper will be passed all the different parts/steps of the multi-step
 // form in the children prop
-const FormikStepper = ({ children, ...props }) => {
+const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
   const childArr = React.Children.toArray(children);
   const [orgImg, setOrgImg] = useState(null);
   const [step, setStep] = useState(0);
@@ -47,7 +61,7 @@ const FormikStepper = ({ children, ...props }) => {
 
   return (
     <Formik
-      {...props}
+      initialValues={props.initialValues}
       validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {

@@ -9,12 +9,12 @@ import { getDatabase, ref, set } from "firebase/database";
 import { app } from "../../firebase_config";
 
 // Create an interface of values that we will be using in our form
-interface Values {
+export interface Values {
   name: string;
   birthday: string;
   gender: string;
   interest: string;
-  pic: { url: string; type: string } | null;
+  pic: { url: string; type: string };
 }
 
 // This function is responsible for connecting with Firebase backend and
@@ -48,7 +48,7 @@ const MainForm = () => (
       birthday: "",
       gender: "",
       interest: "",
-      pic: null,
+      pic: { url: "", type: "" },
     }}
     onSubmit={submitProfile}
   >

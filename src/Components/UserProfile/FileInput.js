@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
-import PreviewImage from "./previewImage";
+import PreviewImage from "./PreviewImage";
 import Compress from "browser-image-compression";
 
 // Since the file/image part of the form is more involving and complex then

@@ -1,7 +1,7 @@
 import Home from "./Components/Home";
 import Signin from "./Components/Signin";
 import Signup from "./Components/Signup";
-import MainForm from "./Components/UserProfile/mainForm";
+import MainForm from "./Components/UserProfile/MainForm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signout from "./Components/Signout";
 import Navbar from "./Components/Navbar";
