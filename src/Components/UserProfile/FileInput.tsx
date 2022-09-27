@@ -1,19 +1,40 @@
 import React, { useState, useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
+import { FormikErrors, ErrorMessage } from "formik";
 import PreviewImage from "./PreviewImage";
 import Compress from "browser-image-compression";
 
+interface FileInputValues {
+  setFieldValue(
+    field: string | ArrayBuffer,
+    value: { url: string | ArrayBuffer; type: string },
+    shouldValidate?: boolean | undefined
+  ): void;
+  picVal: { url: string | ArrayBuffer; type: string };
+  picErr: FormikErrors<{ url: string | ArrayBuffer; type: string }> | undefined;
+  orgImg: { url: string | ArrayBuffer; type: string } | null;
+  setOrgImg: React.Dispatch<
+    React.SetStateAction<{ url: string | ArrayBuffer; type: string } | null>
+  >;
+}
+
 // Since the file/image part of the form is more involving and complex then
 // the other parts we create a separate component for it
-const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
+const FileInput = ({
+  setFieldValue,
+  picVal,
+  picErr,
+  orgImg,
+  setOrgImg,
+}: FileInputValues) => {
   const [modalOn, setModalOn] = useState(false);
-  const fileRef = useRef(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   // This function is responsible for compressing and converting file into
   // base64 encoded string which can be used as a url in src attribute of
   // an image html tag
-  const handleFileChange = async (file) => {
+  const handleFileChange = async (file: File) => {
     if (file && ["image/jpeg", "image/png"].includes(file.type)) {
       const options = {
         maxWidthOrHeight: 1024,
@@ -26,13 +47,19 @@ const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
       reader.readAsDataURL(compressedImage);
 
       reader.onload = (e) => {
-        setFieldValue("pic", { url: e.target.result, type: file.type });
-        setOrgImg({ url: e.target.result, type: file.type });
-        setModalOn(true);
+        if (e?.target?.result) {
+          setFieldValue("pic", { url: e.target.result, type: file.type });
+          setOrgImg({ url: e.target.result, type: file.type });
+          setModalOn(true);
+        }
       };
     } else {
-      setFieldValue("pic", file);
+      setFieldValue("pic", { url: "", type: "" });
     }
+  };
+
+  const handleAddImage = () => {
+    fileRef.current?.click();
   };
 
   return (
@@ -49,7 +76,7 @@ const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
             picErr ? "invalid-input " : "valid-input "
           }input upload-file`}
           onChange={(event) => {
-            if (event.currentTarget.files[0]) {
+            if (event?.currentTarget?.files?.[0]) {
               handleFileChange(event.currentTarget.files[0]);
             }
           }}
@@ -59,7 +86,7 @@ const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
           <button
             className="image-upload-edit-btn"
             type="button"
-            onClick={() => fileRef.current.click()}
+            onClick={handleAddImage}
           >
             <AiOutlinePlus className="text-white" />
           </button>
@@ -75,11 +102,12 @@ const FileInput = ({ setFieldValue, picVal, picErr, orgImg, setOrgImg }) => {
           )}
         </div>
 
-        {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>}
+        {/* {picErr && <p className="inp-err-mssg mb-2">{picErr}</p>} */}
+        <ErrorMessage name="pic" component="p" className="inp-err-mssg mb-2" />
 
-        {!picErr && picVal && (
+        {!picErr && picVal.url && (
           <div className="image-section">
-            <img src={picVal.url} alt="profile pic" />
+            <img src={picVal.url.toString()} alt="profile pic" />
           </div>
         )}
 

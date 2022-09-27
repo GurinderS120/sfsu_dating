@@ -42,7 +42,7 @@ interface FormikStepperProps {
     birthday: string;
     gender: string;
     interest: string;
-    pic: { url: string; type: string };
+    pic: { url: string | ArrayBuffer; type: string };
   };
   onSubmit(values: Values, action: FormikHelpers<Values>): void;
   children: React.ReactNode;
@@ -52,7 +52,10 @@ interface FormikStepperProps {
 // form in the children prop
 const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
   const childArr = React.Children.toArray(children);
-  const [orgImg, setOrgImg] = useState(null);
+  const [orgImg, setOrgImg] = useState<{
+    url: string | ArrayBuffer;
+    type: string;
+  } | null>({ url: "", type: "" });
   const [step, setStep] = useState(0);
 
   const isLastStep = () => {

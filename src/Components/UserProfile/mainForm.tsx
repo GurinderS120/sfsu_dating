@@ -14,7 +14,7 @@ export interface Values {
   birthday: string;
   gender: string;
   interest: string;
-  pic: { url: string; type: string };
+  pic: { url: string | ArrayBuffer; type: string };
 }
 
 // This function is responsible for connecting with Firebase backend and
