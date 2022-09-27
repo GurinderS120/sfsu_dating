@@ -5,6 +5,8 @@ import { FormikErrors, ErrorMessage } from "formik";
 import PreviewImage from "./PreviewImage";
 import Compress from "browser-image-compression";
 
+// Interface defining the types for the props we are accepting for FileInput
+// component
 interface FileInputValues {
   setFieldValue(
     field: string | ArrayBuffer,
@@ -91,7 +93,7 @@ const FileInput = ({
             <AiOutlinePlus className="text-white" />
           </button>
 
-          {!picErr && picVal && (
+          {!picErr && picVal.url && (
             <button
               className="image-upload-edit-btn"
               type="button"

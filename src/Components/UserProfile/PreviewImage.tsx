@@ -1,40 +1,60 @@
-import { useState, useRef } from "react";
-import Cropper from "react-cropper";
+import { useState, useRef, ChangeEvent } from "react";
+import Cropper, { ReactCropperElement } from "react-cropper";
 import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
 import "cropperjs/dist/cropper.css";
+import React from "react";
+
+// Interface defining the types for the props we are accepting for PreviewImage
+// component
+interface PreviewImageValues {
+  img: { url: string | ArrayBuffer; type: string } | null;
+  setModalOn: React.Dispatch<React.SetStateAction<boolean>>;
+  setFieldValue(
+    field: string | ArrayBuffer,
+    value: { url: string | ArrayBuffer; type: string },
+    shouldValidate?: boolean | undefined
+  ): void;
+}
 
 // This Component is responsible for displaying modal(pop up) where a user
 // can edit their uploaded image using Cropper.js
-const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
-  const cropperRef = useRef(null);
-  const [zoomVal, setZoomVal] = useState(0);
+const PreviewImage = ({
+  img,
+  setModalOn,
+  setFieldValue,
+}: PreviewImageValues) => {
+  const cropperRef = useRef<ReactCropperElement>(null);
+  const [zoomVal, setZoomVal] = useState<number>(0);
 
-  const handleZoomChange = (e) => {
-    setZoomVal((prevZoom) => {
-      handleZoom(e.target.value - prevZoom);
-      return e.target.value;
+  const handleZoomChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setZoomVal((prevZoom: number): number => {
+      handleZoom(Number(e.target.value) - prevZoom);
+      return Number(e.target.value);
     });
   };
 
-  const handleZoom = (zoomBy) => {
+  const handleZoom = (zoomBy: number) => {
     const imgEle = cropperRef.current;
-    const cropper = imgEle.cropper;
-    cropper.zoom(zoomBy);
+    const cropper = imgEle?.cropper;
+    cropper?.zoom(zoomBy);
   };
 
   const handleChoose = () => {
     const imgEle = cropperRef.current;
-    const cropper = imgEle.cropper;
-    const imgUrl = {
-      url: cropper
-        .setCropBoxData({ left: 0, top: 0, width: 288 })
-        .getCroppedCanvas()
-        .toDataURL(img.type),
-      type: img.type,
-    };
-    setFieldValue("pic", imgUrl);
-    setModalOn(false);
+    const cropper = imgEle?.cropper;
+
+    if (cropper && img) {
+      const imgUrl = {
+        url: cropper
+          .setCropBoxData({ left: 0, top: 0, width: 288 })
+          .getCroppedCanvas()
+          .toDataURL(img.type),
+        type: img.type,
+      };
+      setFieldValue("pic", imgUrl);
+      setModalOn(false);
+    }
   };
 
   const handleCancel = () => {
@@ -63,7 +83,7 @@ const PreviewImage = ({ img, setModalOn, setFieldValue }) => {
         <div className="image-section">
           <Cropper
             ref={cropperRef}
-            src={img.url}
+            src={img?.url.toString()}
             dragMode="move"
             preview={".img-preview"}
             viewMode={0}
