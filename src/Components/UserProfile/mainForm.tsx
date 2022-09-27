@@ -1,16 +1,25 @@
 import React from "react";
-import { ErrorMessage } from "formik";
+import { ErrorMessage, FormikHelpers } from "formik";
 import RadioField from "../FormikComponents/RadioField";
 import InputField from "../FormikComponents/InputField";
 import FormikStepper from "./FormikStepper";
 
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
-import { app } from "../../firebase_config.ts";
+import { app } from "../../firebase_config";
+
+// Create an interface of values that we will be using in our form
+interface Values {
+  name: string;
+  birthday: string;
+  gender: string;
+  interest: string;
+  pic: { url: string; type: string } | null;
+}
 
 // This function is responsible for connecting with Firebase backend and
 // submitting userprofile
-const submitProfile = (values, action) => {
+const submitProfile = (values: Values, action: FormikHelpers<Values>) => {
   const auth = getAuth(app);
 
   onAuthStateChanged(auth, (user) => {
