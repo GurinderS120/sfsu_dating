@@ -25,6 +25,8 @@ const signin = async (values: Values, actions: FormikHelpers<Values>) => {
     if (!userInfo.user.emailVerified) {
       alert("Please verify your email first");
       signOut(auth);
+    } else {
+      alert("Welcome back");
     }
     actions.resetForm();
   } catch (error) {
