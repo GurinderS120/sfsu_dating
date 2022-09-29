@@ -1,13 +1,7 @@
 import { getStorage, ref, uploadString } from "firebase/storage";
 import HandleError from "../../ErrorHandling";
+import { uploadImageToCloudValues } from "./Interfaces";
 import { app } from "../../firebase_config";
-
-// Create a type of value that we will be accepting as parameters for uploadImageToCloudStorage
-interface uploadImageToCloudValues {
-  url: string | ArrayBuffer;
-  type: string;
-  storageRef: string;
-}
 
 const uploadImageToCloudStorage = async (pic: uploadImageToCloudValues) => {
   const metaData = {

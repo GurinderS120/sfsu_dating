@@ -1,25 +1,10 @@
 import React, { useState, useRef } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
-import { FormikErrors, ErrorMessage } from "formik";
+import { FileInputValues } from "./Interfaces";
+import { ErrorMessage } from "formik";
 import PreviewImage from "./PreviewImage";
 import Compress from "browser-image-compression";
-
-// Interface defining the types for the props we are accepting for FileInput
-// component
-interface FileInputValues {
-  setFieldValue(
-    field: string | ArrayBuffer,
-    value: { url: string | ArrayBuffer; type: string },
-    shouldValidate?: boolean | undefined
-  ): void;
-  picVal: { url: string | ArrayBuffer; type: string };
-  picErr: FormikErrors<{ url: string | ArrayBuffer; type: string }> | undefined;
-  orgImg: { url: string | ArrayBuffer; type: string } | null;
-  setOrgImg: React.Dispatch<
-    React.SetStateAction<{ url: string | ArrayBuffer; type: string } | null>
-  >;
-}
 
 // Since the file/image part of the form is more involving and complex then
 // the other parts we create a separate component for it

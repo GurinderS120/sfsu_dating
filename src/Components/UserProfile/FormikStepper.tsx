@@ -1,6 +1,6 @@
-import { Values } from "./MainForm";
-import { Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { FormikStepperProps } from "./Interfaces";
 import FileInput from "./FileInput";
 import {
   genderSchema,
@@ -34,19 +34,6 @@ const getProgress = (step: number) => {
       return "progress-bar-4";
   }
 };
-
-// Create an interface of values that we will be using for FormikStepper
-interface FormikStepperProps {
-  initialValues: {
-    name: string;
-    birthday: string;
-    gender: string;
-    interest: string;
-    pic: { url: string | ArrayBuffer; type: string };
-  };
-  onSubmit(values: Values, action: FormikHelpers<Values>): void;
-  children: React.ReactNode;
-}
 
 // FormikStepper will be passed all the different parts/steps of the multi-step
 // form in the children prop

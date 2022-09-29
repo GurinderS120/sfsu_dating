@@ -3,28 +3,12 @@ import { ErrorMessage, FormikHelpers } from "formik";
 import RadioField from "../FormikComponents/RadioField";
 import InputField from "../FormikComponents/InputField";
 import FormikStepper from "./FormikStepper";
-
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import { uploadProfileValues, Values } from "./Interfaces";
 import HandleError from "../../ErrorHandling";
 import uploadImageToCloudStorage from "./UploadImageToCloud";
 import { app } from "../../firebase_config";
-
-// Create an interface of values that we will be using in our userprofile form
-export interface Values {
-  name: string;
-  birthday: string;
-  gender: string;
-  interest: string;
-  pic: { url: string | ArrayBuffer; type: string };
-}
-
-// Create an interface of values that we will be accepting as params to the uploadProfileToDatabase function
-interface uploadProfileValues {
-  values: Values;
-  user: User | null;
-  imgStrgRef: string;
-}
 
 // This function is responsible for connecting with Firebase's Realtime Database
 // and submitting userprofile

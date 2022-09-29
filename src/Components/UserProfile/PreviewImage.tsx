@@ -4,18 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { AiOutlineCheck } from "react-icons/ai";
 import "cropperjs/dist/cropper.css";
 import React from "react";
-
-// Interface defining the types for the props we are accepting for PreviewImage
-// component
-interface PreviewImageValues {
-  img: { url: string | ArrayBuffer; type: string } | null;
-  setModalOn: React.Dispatch<React.SetStateAction<boolean>>;
-  setFieldValue(
-    field: string | ArrayBuffer,
-    value: { url: string | ArrayBuffer; type: string },
-    shouldValidate?: boolean | undefined
-  ): void;
-}
+import { PreviewImageValues } from "./Interfaces";
 
 // This Component is responsible for displaying modal(pop up) where a user
 // can edit their uploaded image using Cropper.js
