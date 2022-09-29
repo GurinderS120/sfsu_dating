@@ -4,6 +4,13 @@ import React from "react";
 
 const Navbar = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
+
+  const closeMenu = () => {
+    if (displayMenu) {
+      setDisplayMenu(false);
+    }
+  };
+
   return (
     <nav
       className={`${
@@ -15,7 +22,11 @@ const Navbar = () => {
         <div className="flex justify-between lg:block">
           {/* Logo */}
           <h3>
-            <Link className="no-underline font-bold tracking-wide" to="/">
+            <Link
+              onClick={closeMenu}
+              className="no-underline font-bold tracking-wide"
+              to="/"
+            >
               SFSU-Dating
             </Link>
           </h3>
@@ -46,6 +57,7 @@ const Navbar = () => {
         >
           <li>
             <Link
+              onClick={closeMenu}
               className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
               to="/policy"
             >
@@ -54,6 +66,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
+              onClick={closeMenu}
               className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
               to="/about"
             >
@@ -62,6 +75,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link
+              onClick={closeMenu}
               className="sm-nav-links lg:lg-nav-links ease-in-out duration-300"
               to="/support"
             >
@@ -76,7 +90,7 @@ const Navbar = () => {
           } lg:flex flex-col lg:flex-row mt-11 lg:mt-0 ease-in-out duration-300`}
         >
           <li>
-            <Link className="btn" to="/signin">
+            <Link onClick={closeMenu} className="btn" to="/signin">
               Login
             </Link>
           </li>
