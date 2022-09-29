@@ -2,6 +2,8 @@ import React from "react";
 import { ErrorMessage, FormikHelpers } from "formik";
 import RadioField from "../FormikComponents/RadioField";
 import InputField from "../FormikComponents/InputField";
+import CheckBoxField from "../FormikComponents/CheckBoxField";
+import { activitiesArr } from "./Data";
 import FormikStepper from "./FormikStepper";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
@@ -22,6 +24,8 @@ const uploadProfileToDatabase = async (profInfo: uploadProfileValues) => {
       birthday: values.birthday,
       gender: values.gender,
       interest: values.interest,
+      relation: values.relation,
+      activities: values.activities,
       pic: {
         url: imgStrgRef,
       },
@@ -65,6 +69,8 @@ const MainForm = () => (
       birthday: "",
       gender: "",
       interest: "",
+      relation: "",
+      activities: [],
       pic: { url: "", type: "" },
     }}
     onSubmit={submitProfile}
@@ -92,6 +98,31 @@ const MainForm = () => (
       <RadioField name="interest" value="Women" type="radio" />
       <RadioField name="interest" value="Both" type="radio" />
       <ErrorMessage component="p" name="interest" className="inp-err-mssg" />
+    </div>
+    <div className="ml-4">
+      <h3 className="form-step-header">Relationship</h3>
+      <p className="text-xs md:text-sm mb-3 font-semibold">
+        What kind of relationship are you looking for?
+      </p>
+      <RadioField name="relation" value="Serious" type="radio" />
+      <RadioField name="relation" value="Casual" type="radio" />
+      <RadioField name="relation" value="Friendship" type="radio" />
+      <ErrorMessage component="p" name="relation" className="inp-err-mssg" />
+    </div>
+    <div className="ml-0">
+      <h3 className="form-step-header">Actitvities</h3>
+      <p className="text-xs md:text-sm mb-3 font-semibold">
+        How do you like to spend your time?
+      </p>
+      {activitiesArr.map((activity, index) => (
+        <CheckBoxField
+          key={index}
+          name="activities"
+          value={activity}
+          type="checkbox"
+        />
+      ))}
+      <ErrorMessage component="p" name="activities" className="inp-err-mssg" />
     </div>
     <div></div>
   </FormikStepper>
