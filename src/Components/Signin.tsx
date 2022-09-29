@@ -41,7 +41,7 @@ const Signin = () => (
     validationSchema={signinSchema}
   >
     <div>
-      <div className="h-screen flex flex-col mt-[8rem] items-center">
+      <div className="h-screen flex flex-col mt-[13rem] items-center">
         <Form className="flex flex-col w-60 lg:form-container">
           <h3 className="form-step-header">Login</h3>
           <InputField type="email" name="email" placeholder="Email" />

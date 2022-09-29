@@ -15,7 +15,7 @@ const Navbar = () => {
     <nav
       className={`${
         displayMenu ? "h-screen" : "h-auto"
-      } bg-slate-200 lg:h-auto sticky top-0 z-10`}
+      } bg-slate-200 lg:h-auto fixed w-full top-0 z-10`}
     >
       {/* container */}
       <div className="lg:flex p-4 lg:justify-between lg:text-lg">

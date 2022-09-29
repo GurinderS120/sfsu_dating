@@ -78,7 +78,7 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
           </div>
           <Form
             autoComplete="off"
-            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[8rem] lg:form-container"
+            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[14rem] lg:form-container"
           >
             {isLastStep() ? (
               <FileInput

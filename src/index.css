@@ -37,7 +37,7 @@
     }
 
     .progress-bar-bg {
-        @apply w-full bg-blue-100 h-3 relative
+        @apply w-full bg-blue-100 h-3 fixed top-[56px] lg:top-[60px] z-[9]
     }
 
     .progress-bar-fg {
