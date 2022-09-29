@@ -45,25 +45,32 @@
     }
 
     .progress-bar-0 {
-        @apply w-[10%] 
+        @apply w-[5%] 
     }
 
     .progress-bar-1 {
-        @apply w-[30%] 
+        @apply w-[14.28%] 
     }
 
     .progress-bar-2 {
-        @apply w-[50%] 
+        @apply w-[28.56%] 
     }
 
     .progress-bar-3 {
-        @apply w-[70%] 
+        @apply w-[42.84%] 
     }
 
     .progress-bar-4 {
-        @apply w-[100%] 
+        @apply w-[57.12%] 
     }
 
+    .progress-bar-5 {
+        @apply w-[71.40%] 
+    }
+
+    .progress-bar-6 {
+        @apply w-[100%] 
+    }
 
     .form-step-header {
         @apply mb-14 font-bold text-2xl md:text-4xl
