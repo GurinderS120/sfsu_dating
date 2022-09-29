@@ -80,6 +80,14 @@ export const interestSchema = yup.object().shape({
   interest: yup.string().required("Required"),
 });
 
+export const relationSchema = yup.object().shape({
+  relation: yup.string().required("Required"),
+});
+
+export const activitiesSchema = yup.object().shape({
+  activities: yup.array().required("Required"),
+});
+
 export const picSchema = yup.object().shape({
   pic: yup
     .mixed()
