@@ -4,11 +4,13 @@ import RadioField from "../FormikComponents/RadioField";
 import InputField from "../FormikComponents/InputField";
 import FormikStepper from "./FormikStepper";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
+import HandleError from "../../ErrorHandling";
+import uploadImageToCloudStorage from "./UploadImageToCloud";
 import { app } from "../../firebase_config";
 
-// Create an interface of values that we will be using in our form
+// Create an interface of values that we will be using in our userprofile form
 export interface Values {
   name: string;
   birthday: string;
@@ -17,21 +19,52 @@ export interface Values {
   pic: { url: string | ArrayBuffer; type: string };
 }
 
-// This function is responsible for connecting with Firebase backend and
-// submitting userprofile
+// Create an interface of values that we will be accepting as params to the uploadProfileToDatabase function
+interface uploadProfileValues {
+  values: Values;
+  user: User | null;
+  imgStrgRef: string;
+}
+
+// This function is responsible for connecting with Firebase's Realtime Database
+// and submitting userprofile
+const uploadProfileToDatabase = async (profInfo: uploadProfileValues) => {
+  const { values, user, imgStrgRef } = profInfo;
+  const db = getDatabase(app);
+
+  try {
+    await set(ref(db, `users/${user?.uid}/userprofile`), {
+      name: values.name,
+      birthday: values.birthday,
+      gender: values.gender,
+      interest: values.interest,
+      pic: {
+        url: imgStrgRef,
+      },
+    });
+  } catch (error) {
+    HandleError(error);
+  }
+};
+
+// This function is responsible for calling helper functions to submit
+// userprofile
 const submitProfile = (values: Values, action: FormikHelpers<Values>) => {
   const auth = getAuth(app);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const db = getDatabase(app);
-      set(ref(db, `users/${user.uid}/userprofile`), {
-        name: values.name,
-        birthday: values.birthday,
-        gender: values.gender,
-        interest: values.interest,
-        pic: values.pic,
+      const imgStrgRef = `users/${
+        user.uid
+      }/userprofile/profileImg.${values.pic.type.replace("image/", "")}`;
+
+      uploadImageToCloudStorage({
+        url: values.pic.url,
+        type: values.pic.type,
+        storageRef: imgStrgRef,
       });
+
+      uploadProfileToDatabase({ values, user, imgStrgRef });
     } else {
       alert("No user is signed in");
     }
