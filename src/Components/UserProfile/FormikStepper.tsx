@@ -7,6 +7,8 @@ import {
   nameSchema,
   birthdaySchema,
   interestSchema,
+  relationSchema,
+  activitiesSchema,
   picSchema,
 } from "../../Schemas/index";
 
@@ -15,6 +17,8 @@ const inputSchemas = [
   birthdaySchema,
   genderSchema,
   interestSchema,
+  relationSchema,
+  activitiesSchema,
   picSchema,
 ];
 
@@ -30,8 +34,12 @@ const getProgress = (step: number) => {
       return "progress-bar-2";
     case 3:
       return "progress-bar-3";
-    default:
+    case 4:
       return "progress-bar-4";
+    case 5:
+      return "progress-bar-5";
+    default:
+      return "progress-bar-6";
   }
 };
 

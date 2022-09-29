@@ -14,6 +14,8 @@ export interface Values {
   birthday: string;
   gender: string;
   interest: string;
+  relation: "";
+  activities: [];
   pic: { url: string | ArrayBuffer; type: string };
 }
 
@@ -31,6 +33,8 @@ export interface FormikStepperProps {
     birthday: string;
     gender: string;
     interest: string;
+    relation: "";
+    activities: [];
     pic: { url: string | ArrayBuffer; type: string };
   };
   onSubmit(values: Values, action: FormikHelpers<Values>): void;
