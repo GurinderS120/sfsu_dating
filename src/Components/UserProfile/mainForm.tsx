@@ -5,35 +5,11 @@ import InputField from "../FormikComponents/InputField";
 import CheckBoxField from "../FormikComponents/CheckBoxField";
 import { activitiesArr } from "./Data";
 import FormikStepper from "./FormikStepper";
+import { Values } from "./Interfaces";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, set } from "firebase/database";
-import { uploadProfileValues, Values } from "./Interfaces";
-import HandleError from "../../ErrorHandling";
+import uploadProfileToDatabase from "./UploadProfileToDatabase";
 import uploadImageToCloudStorage from "./UploadImageToCloud";
 import { app } from "../../firebase_config";
-
-// This function is responsible for connecting with Firebase's Realtime Database
-// and submitting userprofile
-const uploadProfileToDatabase = async (profInfo: uploadProfileValues) => {
-  const { values, user, imgStrgRef } = profInfo;
-  const db = getDatabase(app);
-
-  try {
-    await set(ref(db, `users/${user?.uid}/userprofile`), {
-      name: values.name,
-      birthday: values.birthday,
-      gender: values.gender,
-      interest: values.interest,
-      relation: values.relation,
-      activities: values.activities,
-      pic: {
-        url: imgStrgRef,
-      },
-    });
-  } catch (error) {
-    HandleError(error);
-  }
-};
 
 // This function is responsible for calling helper functions to submit
 // userprofile
