@@ -110,7 +110,7 @@ const MainForm = () => (
       <ErrorMessage component="p" name="relation" className="inp-err-mssg" />
     </div>
     <div className="ml-0">
-      <h3 className="form-step-header">Actitvities</h3>
+      <h3 className="form-step-header">Activities</h3>
       <p className="text-xs md:text-sm mb-3 font-semibold">
         How do you like to spend your time?
       </p>
