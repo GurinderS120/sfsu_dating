@@ -85,7 +85,7 @@ export const relationSchema = yup.object().shape({
 });
 
 export const activitiesSchema = yup.object().shape({
-  activities: yup.array().required("Required"),
+  activities: yup.array().min(1, "Required"),
 });
 
 export const picSchema = yup.object().shape({
