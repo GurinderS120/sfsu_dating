@@ -57,6 +57,10 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
     return step === childArr.length - 1;
   };
 
+  const decreaseStep = () => {
+    setStep((step) => step - 1);
+  };
+
   return (
     <Formik
       initialValues={props.initialValues}
@@ -91,23 +95,25 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
             ) : (
               childArr[step]
             )}
-            <button className="btn mt-4 w-full" type="submit">
-              {isLastStep() ? "Submit" : "Next"}
-            </button>
-            {step > 0 ? (
-              <button
-                className="btn mt-4 w-full"
-                type="button"
-                onClick={() => setStep((step) => step - 1)}
-              >
-                Back
-              </button>
-            ) : null}
+            <NextSubmitBtn isLastStep={isLastStep} />
+            {step > 0 ? <BackBtn decreaseStep={decreaseStep} /> : null}
           </Form>
         </>
       )}
     </Formik>
   );
 };
+
+const NextSubmitBtn = (prop: { isLastStep: () => boolean }) => (
+  <button className="btn mt-4 w-full" type="submit">
+    {prop.isLastStep() ? "Submit" : "Next"}
+  </button>
+);
+
+const BackBtn = (prop: { decreaseStep: () => void }) => (
+  <button className="btn mt-4 w-full" type="button" onClick={prop.decreaseStep}>
+    Back
+  </button>
+);
 
 export default FormikStepper;
