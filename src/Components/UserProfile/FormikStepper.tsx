@@ -63,7 +63,7 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
       validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
-          await props.onSubmit(values, helpers);
+          props.onSubmit(values, helpers);
         } else {
           setStep((step) => step + 1);
         }
