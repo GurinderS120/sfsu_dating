@@ -112,6 +112,10 @@
         @apply flex flex-row justify-between w-[15rem] lg:w-[18rem]
     }
 
+    .modal-display-inputs-wrapper {
+        @apply  bg-white
+    }
+
     .slider::-webkit-slider-thumb {
         @apply appearance-none w-[1.3rem] h-[1.3rem] outline-none border-slate-50 rounded-full bg-gradient-to-r from-green-400 to-blue-500 cursor-pointer
     }
