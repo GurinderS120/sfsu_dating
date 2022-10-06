@@ -68,3 +68,17 @@ export interface PreviewImageValues {
     shouldValidate?: boolean | undefined
   ): void;
 }
+
+// Interface defining the types for the props we are accepting for DisplayPic
+// component
+export interface DisplayPicValues {
+  value: { url: string | ArrayBuffer; type: string };
+}
+
+// Interface defining the types for the props we are accepting for ReviewInputsBeforeSubmission component
+export interface ReviewInputsValues {
+  onSubmit(values: Values, action: FormikHelpers<Values>): void;
+  values: Values;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  setDisplayInputs: React.Dispatch<React.SetStateAction<boolean>>;
+}
