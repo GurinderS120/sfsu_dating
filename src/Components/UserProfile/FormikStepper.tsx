@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
 import { FormikStepperProps } from "./Interfaces";
+import ReviewInputsBeforeSubmission from "./ReviewInputsBeforeSubmission";
 import FileInput from "./FileInput";
 import {
   genderSchema,
@@ -52,6 +53,7 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
     type: string;
   } | null>({ url: "", type: "" });
   const [step, setStep] = useState(0);
+  const [displayInputs, setDisplayInputs] = useState(false);
 
   const isLastStep = () => {
     return step === childArr.length - 1;
@@ -67,8 +69,11 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
       validationSchema={inputSchemas[step]}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
-          props.onSubmit(values, helpers);
+          setDisplayInputs(true);
         } else {
+          if (displayInputs) {
+            setDisplayInputs(false);
+          }
           setStep((step) => step + 1);
         }
       }}
@@ -80,11 +85,16 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
               <div className={`progress-bar-fg ${getProgress(step)}`}></div>
             </div>
           </div>
-          <Form
-            autoComplete="off"
-            className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[14rem] lg:form-container"
-          >
-            {isLastStep() ? (
+          <Form className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[14rem] lg:form-container">
+            {displayInputs && (
+              <ReviewInputsBeforeSubmission
+                onSubmit={props.onSubmit}
+                values={values}
+                setStep={setStep}
+                setDisplayInputs={setDisplayInputs}
+              />
+            )}
+            {isLastStep() && !displayInputs && (
               <FileInput
                 setFieldValue={setFieldValue}
                 picVal={values.pic}
@@ -92,9 +102,8 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
                 orgImg={orgImg}
                 setOrgImg={setOrgImg}
               />
-            ) : (
-              childArr[step]
             )}
+            {!isLastStep() && !displayInputs && childArr[step]}
             <NextSubmitBtn isLastStep={isLastStep} />
             {step > 0 ? <BackBtn decreaseStep={decreaseStep} /> : null}
           </Form>
