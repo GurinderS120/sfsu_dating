@@ -36,7 +36,7 @@ const PreviewImage = ({
     if (cropper && img) {
       const imgUrl = {
         url: cropper
-          .setCropBoxData({ left: 0, top: 0, width: 288 })
+          .setCropBoxData({ left: 0, top: 0, width: 288, height: 240 })
           .getCroppedCanvas()
           .toDataURL(img.type),
         type: img.type,
