@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase_config";
 import { Form, Formik, ErrorMessage, FormikHelpers } from "formik";
 import InputField from "./FormikComponents/InputField";
@@ -15,7 +15,6 @@ interface Values {
 
 const signin = async (values: Values, actions: FormikHelpers<Values>) => {
   const auth = getAuth(app);
-
   try {
     const userInfo = await signInWithEmailAndPassword(
       auth,
@@ -25,8 +24,6 @@ const signin = async (values: Values, actions: FormikHelpers<Values>) => {
     if (!userInfo.user.emailVerified) {
       alert("Please verify your email first");
       signOut(auth);
-    } else {
-      alert("Welcome back");
     }
     actions.resetForm();
   } catch (error) {

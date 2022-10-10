@@ -1,14 +1,25 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { selectUser } from "../ReduxStateManagement/Reducers/userReducer";
+import { getAuth, signOut } from "firebase/auth";
+import { app } from "../firebase_config";
+import { useAppSelector } from "../ReduxStateManagement/hooks";
 import React from "react";
 
 const Navbar = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
+  const user = useAppSelector(selectUser);
 
   const closeMenu = () => {
     if (displayMenu) {
       setDisplayMenu(false);
     }
+  };
+
+  const logout = () => {
+    const auth = getAuth(app);
+    signOut(auth);
+    closeMenu();
   };
 
   return (
@@ -90,8 +101,12 @@ const Navbar = () => {
           } lg:flex flex-col lg:flex-row mt-11 lg:mt-0 ease-in-out duration-300`}
         >
           <li>
-            <Link onClick={closeMenu} className="btn" to="/signin">
-              Login
+            <Link
+              onClick={user ? logout : closeMenu}
+              className="btn"
+              to="/signin"
+            >
+              {user ? "Logout" : "Login"}
             </Link>
           </li>
         </ul>
