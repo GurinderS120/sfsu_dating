@@ -77,7 +77,7 @@ export interface DisplayPicValues {
 
 // Interface defining the types for the props we are accepting for ReviewInputsBeforeSubmission component
 export interface ReviewInputsValues {
-  onSubmit(values: Values, action: FormikHelpers<Values>): void;
+  onSubmit(values: Values, action?: FormikHelpers<Values>): void;
   values: Values;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   setDisplayInputs: React.Dispatch<React.SetStateAction<boolean>>;

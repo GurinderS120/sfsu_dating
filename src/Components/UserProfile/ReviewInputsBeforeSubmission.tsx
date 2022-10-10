@@ -16,9 +16,9 @@ const ReviewInputsBeforeSubmission = ({
   setDisplayInputs,
 }: ReviewInputsValues) => (
   <div className="modal-container">
-    <div className="modal-content-wrapper md:h-[40rem] max-w-[30rem] overflow-auto">
-      <div className="modal-display-inputs">
-        <h3 className="form-step-header mb-6 mt-16">Review</h3>
+    <div className="modal-content-wrapper md:h-[45rem] max-w-[30rem] overflow-auto py-3">
+      <div className="flex flex-col space-y-2">
+        <h3 className="form-step-header mb-6 mt-10">Review</h3>
         {Object.entries(values).map(([key, value], index) => (
           <div
             key={index}
@@ -31,25 +31,38 @@ const ReviewInputsBeforeSubmission = ({
             ) : (
               <DisplayActivities activities={value} />
             )}
-            <FiEdit2 className="mt-1" />
+            <FiEdit2
+              onClick={() => {
+                setStep(index);
+                setDisplayInputs(false);
+              }}
+              className="mt-1 cursor-pointer"
+            />
           </div>
         ))}
+        <button
+          className="btn mt-4 w-full -translate-x-2"
+          onClick={() => onSubmit(values)}
+          type="button"
+        >
+          Submit
+        </button>
       </div>
     </div>
   </div>
 );
 
 const DisplaySingleInput = (prop: { keyVal: string; value: string }) => (
-  <p className="mb-3">
+  <div>
     <span className="font-bold mr-2">
       {prop.keyVal[0].toUpperCase() + prop.keyVal.slice(1)}:
     </span>
     <span>{prop.value}</span>
-  </p>
+  </div>
 );
 
 const DisplayActivities = (prop: { activities: string[] }) => (
-  <div className="mb-3">
+  <div>
     <h3 className="mb-1 font-bold">Activities:</h3>
     <div className="max-h-[8rem] overflow-auto">
       {prop.activities.map((activity: string, idx: number) => (
@@ -60,10 +73,10 @@ const DisplayActivities = (prop: { activities: string[] }) => (
 );
 
 const DisplayPic = ({ value }: DisplayPicValues) => (
-  <div className="mb-3">
+  <div>
     <h3 className="font-bold">Profile Pic:</h3>
     <img
-      className="image-section mt-1"
+      className="image-section mt-1 object-cover"
       src={value.url.toString()}
       alt="profile pic"
     />

@@ -6,33 +6,33 @@ import CheckBoxField from "../FormikComponents/CheckBoxField";
 import { activitiesArr } from "./Data";
 import FormikStepper from "./FormikStepper";
 import { Values } from "./Interfaces";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import uploadProfileToDatabase from "./UploadProfileToDatabase";
 import uploadImageToCloudStorage from "./UploadImageToCloud";
 import { app } from "../../firebase_config";
 
 // This function is responsible for calling helper functions to submit
 // userprofile
-const submitProfile = (values: Values, action: FormikHelpers<Values>) => {
+const submitProfile = (values: Values, action?: FormikHelpers<Values>) => {
   const auth = getAuth(app);
+  const user = auth.currentUser;
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const imgStrgRef = `users/${
-        user.uid
-      }/userprofile/profileImg.${values.pic.type.replace("image/", "")}`;
+  if (user) {
+    const imgStrgRef = `users/${
+      user.uid
+    }/userprofile/profileImg.${values.pic.type.replace("image/", "")}`;
 
-      uploadImageToCloudStorage({
-        url: values.pic.url,
-        type: values.pic.type,
-        storageRef: imgStrgRef,
-      });
+    uploadImageToCloudStorage({
+      url: values.pic.url,
+      type: values.pic.type,
+      storageRef: imgStrgRef,
+    });
 
-      uploadProfileToDatabase({ values, user, imgStrgRef });
-    } else {
-      alert("No user is signed in");
-    }
-  });
+    uploadProfileToDatabase({ values, user, imgStrgRef });
+  } else {
+    alert("No user is signed in");
+    console.log("no user");
+  }
 };
 
 // MainForm contains all the parts of the userProfile form, but we don't

@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 import { FormikStepperProps } from "./Interfaces";
 import ReviewInputsBeforeSubmission from "./ReviewInputsBeforeSubmission";
 import FileInput from "./FileInput";
@@ -54,6 +55,7 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
   } | null>({ url: "", type: "" });
   const [step, setStep] = useState(0);
   const [displayInputs, setDisplayInputs] = useState(false);
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   const isLastStep = () => {
     return step === childArr.length - 1;
@@ -63,12 +65,17 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
     setStep((step) => step - 1);
   };
 
+  const handleDisplayInputs = () => {
+    setDisplayInputs(true);
+  };
+
   return (
     <Formik
       initialValues={props.initialValues}
       validationSchema={inputSchemas[step]}
-      onSubmit={async (values, helpers) => {
+      onSubmit={(values, helpers) => {
         if (isLastStep()) {
+          setIsFormComplete(true);
           setDisplayInputs(true);
         } else {
           if (displayInputs) {
@@ -85,7 +92,14 @@ const FormikStepper = ({ children, ...props }: FormikStepperProps) => {
               <div className={`progress-bar-fg ${getProgress(step)}`}></div>
             </div>
           </div>
-          <Form className="flex flex-col h-screen w-60 ml-auto mr-auto mt-[14rem] lg:form-container">
+          {isFormComplete && !isLastStep() && (
+            <ReviewSectionInfo handleDisplayInputs={handleDisplayInputs} />
+          )}
+          <Form
+            className={`flex flex-col h-screen w-60 ml-auto mr-auto ${
+              isFormComplete && !isLastStep() ? "mt-[3rem]" : "mt-[11rem]"
+            } mt-lg:form-container`}
+          >
             {displayInputs && (
               <ReviewInputsBeforeSubmission
                 onSubmit={props.onSubmit}
@@ -123,6 +137,25 @@ const BackBtn = (prop: { decreaseStep: () => void }) => (
   <button className="btn mt-4 w-full" type="button" onClick={prop.decreaseStep}>
     Back
   </button>
+);
+
+const ReviewSectionInfo = (prop: { handleDisplayInputs: () => void }) => (
+  <div
+    className="mt-[9rem] max-w-[25rem] mx-auto flex bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-2 py-3 shadow-md"
+    role="alert"
+  >
+    <HiOutlineInformationCircle className="stroke-teal-500 h-7 w-7 mr-4" />
+    <p>
+      Click
+      <span
+        onClick={prop.handleDisplayInputs}
+        className="underline text-blue-600 hover:text-blue-800 mx-1 cursor-pointer"
+      >
+        here
+      </span>
+      to go back to the review section
+    </p>
+  </div>
 );
 
 export default FormikStepper;
