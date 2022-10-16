@@ -1,6 +1,5 @@
 // We will use this file to store list values that can be used in various inputs
 // like radio buttons, select, checkboxes
-
 export const activitiesArr = [
   { id: 0, val: "Studying" },
   { id: 1, val: "Playing video games" },
