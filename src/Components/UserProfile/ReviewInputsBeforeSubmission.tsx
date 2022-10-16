@@ -74,9 +74,10 @@ const DisplayActivities = (prop: { activities: string[] }) => (
   <div>
     <h3 className="mb-1 font-bold">Activities:</h3>
     <div className="max-h-[8rem] overflow-auto">
-      {prop.activities.map((activity: string, idx: number) => (
-        <p key={idx}>{activity}</p>
-      ))}
+      {prop.activities.map((activity) => {
+        const { id, val } = JSON.parse(activity);
+        return <p key={id}>{val}</p>;
+      })}
     </div>
   </div>
 );

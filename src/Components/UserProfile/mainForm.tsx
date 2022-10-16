@@ -90,11 +90,11 @@ const MainForm = () => (
       <p className="text-xs md:text-sm mb-3 font-semibold">
         How do you like to spend your time?
       </p>
-      {activitiesArr.map((activity, index) => (
+      {activitiesArr.map((activity) => (
         <CheckBoxField
-          key={index}
+          key={activity.id}
           name="activities"
-          value={activity}
+          value={`{"id": "${activity.id}", "val": "${activity.val}"}`}
           type="checkbox"
         />
       ))}
